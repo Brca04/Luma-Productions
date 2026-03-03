@@ -4,12 +4,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  AnimatePresence,
   motion,
   useReducedMotion,
   useScroll,
   useTransform,
 } from "framer-motion";
+
+import ImagePreviewModal from "@/components/ImagePreviewModal";
 
 export default function Home() {
   const shouldReduceMotion = useReducedMotion();
@@ -36,7 +37,7 @@ export default function Home() {
         image: "/vjencanje.webp",
       },
       {
-        title: "Krštenja",
+        title: "Najam Photobooth-a",
         description: "Posebni obiteljski trenuci zaslužuju posebnu pažnju",
         href: "/krstenja",
         image: "/krstenje.webp",
@@ -71,14 +72,6 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [heroImages.length]);
 
-  // ESC key to close preview
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setPreviewImage(null);
-    };
-    if (previewImage) window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, [previewImage]);
 
   // Parallax (hero background moves slower than scroll)
   const heroRef = useRef<HTMLElement | null>(null);
@@ -114,7 +107,6 @@ export default function Home() {
   return (
     <div>
       {/* Hero Section */}
-      {/* 100dvh = perfect fullscreen on mobile */}
       <section
   ref={heroRef as any}
   className="relative h-[calc(100dvh-4rem)] flex items-end text-white overflow-hidden"
@@ -343,41 +335,7 @@ export default function Home() {
       </section>
 
       {/* Image Preview Modal (mobile-friendly) */}
-      <AnimatePresence>
-        {previewImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 md:p-6"
-            onClick={(e) => {
-              if (e.target === e.currentTarget) setPreviewImage(null);
-            }}
-          >
-            <motion.div
-              initial={{ scale: 0.98, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.98, opacity: 0 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-full max-w-3xl md:max-w-6xl max-h-full md:max-h-[90vh]"
-            >
-              <div className="relative w-full h-[60vh] sm:h-[70vh] md:h-[80vh] rounded-lg overflow-hidden">
-                <Image
-                  src={previewImage}
-                  alt="Preview"
-                  fill
-                  // This is now the main image in modal; keep quality decent
-                  quality={85}
-                  sizes="100vw"
-                  className="object-contain"
-                  priority
-                />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <ImagePreviewModal src={previewImage} onClose={() => setPreviewImage(null)} />
     </div>
   );
 }

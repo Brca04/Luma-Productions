@@ -113,17 +113,7 @@ export default function Reklame() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-[400px] bg-gradient-to-r from-indigo-900 to-purple-800 text-white flex items-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">
-            Reklame & Komercijalna Fotografija
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-200">
-            Vizualni sadržaj koji prodaje i jača vaš brend
-          </p>
-        </div>
-      </section>
+      
 
       {/* Description Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -193,23 +183,7 @@ export default function Reklame() {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h2 className="text-4xl font-bold text-center mb-4">Paketi za Komercijalne Projekte</h2>
-        <p className="text-center text-gray-600 mb-12 text-lg">
-          Fleksibilna rješenja prilagođena vašim potrebama
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {pricingPlans.map((plan, index) => (
-            <PricingCard key={index} plan={plan} />
-          ))}
-        </div>
-        <div className="mt-12 text-center">
-          <p className="text-gray-600 mb-4">
-            Trebate prilagođeni paket? Kontaktirajte nas za custom ponudu.
-          </p>
-        </div>
-      </section>
+      
     </div>
   );
 }

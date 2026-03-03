@@ -9,6 +9,7 @@ export interface PricingPlan {
   category: PlanCategory;
   name: string;
   price: string;
+  priceLabel?: string; // e.g. "PER SEAT" or "EACH"
   features: string[];
   imageSrc?: string;
   imageAlt?: string;
@@ -23,19 +24,18 @@ const listVariants: Variants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.08,
+      staggerChildren: 0.07,
     },
   },
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 8 },
+  hidden: { opacity: 0, y: 6 },
   show: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.25,
-      // ✅ use cubic-bezier instead of string
+      duration: 0.22,
       ease: [0.16, 1, 0.3, 1],
     },
   },
@@ -58,61 +58,127 @@ const tickVariants: Variants = {
 export default function PricingCard({ plan }: PricingCardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.05, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ y: -6 }}
-      className={` bg-white text-gray-900 shadow-lg transition-all duration-300 hover:shadow-2xl border-2 flex flex-col h-full overflow-hidden ${
-        plan.highlighted ? 'border-black' : 'border-gray-200'
-      }`}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -4, transition: { duration: 0.2 } }}
+      style={{
+        fontFamily: "'DM Sans', 'Helvetica Neue', Arial, sans-serif",
+        background: '#ffffff',
+        border: plan.highlighted ? '1.5px solid black' : '1.5px solid black',
+        boxShadow: plan.highlighted
+          ? '0 2px 16px 0 rgba(0,0,0,0.10)'
+          : '0 1px 4px 0 rgba(0,0,0,0.05)',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        overflow: 'hidden',
+        transition: 'box-shadow 0.2s',
+      }}
     >
-      {/* Big image */}
+      {/* Optional image */}
       {plan.imageSrc && (
-        <div className="relative w-full aspect-[3/2]">
+        <div style={{ position: 'relative', width: '100%', aspectRatio: '3/2' }}>
           <Image
             src={plan.imageSrc}
             alt={plan.imageAlt ?? plan.name}
             fill
-            className="object-cover"
+            style={{ objectFit: 'cover' }}
             sizes="(min-width: 768px) 33vw, 100vw"
             priority={!!plan.highlighted}
           />
         </div>
       )}
 
-      <div className="p-6 flex flex-col h-full">
-        <h3 className="text-2xl font-bold mb-4">{plan.name}</h3>
+      <div style={{ padding: '24px 28px 28px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
 
-        <div className="mb-6">
-          <span className="text-4xl font-bold text-black">{plan.price}</span>
+        {/* Category label */}
+        <span style={{
+          display: 'block',
+          fontSize: '11px',
+          fontWeight: 500,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          color: '#888',
+          marginBottom: '10px',
+        }}>
+          {plan.name}
+        </span>
+
+        {/* Price row */}
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '20px' }}>
+          <span style={{
+            fontSize: '32px',
+            fontWeight: 700,
+            letterSpacing: '-0.02em',
+            color: '#111',
+            lineHeight: 1,
+          }}>
+            {plan.price}
+          </span>
+          {plan.priceLabel && (
+            <span style={{
+              fontSize: '11px',
+              fontWeight: 600,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              color: '#aaa',
+            }}>
+              {plan.priceLabel}
+            </span>
+          )}
         </div>
 
-        {/* Animated feature list */}
+        {/* Hairline divider */}
+        <div style={{ borderTop: '1px solid #ebebeb', marginBottom: '20px' }} />
+
+        {/* Feature list */}
         <motion.ul
-          className="space-y-3 mb-8 flex-grow"
+          style={{ listStyle: 'none', padding: 0, margin: 0, flexGrow: 1 }}
           variants={listVariants}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.4 }}
         >
           {plan.features.map((feature, index) => (
-            <motion.li key={index} className="flex items-start" variants={itemVariants}>
-              {/* Animated tick */}
+            <motion.li
+              key={index}
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '10px',
+                marginBottom: '11px',
+              }}
+              variants={itemVariants}
+            >
+              {/* Thin checkmark matching screenshot style */}
               <motion.svg
-                className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0 text-green-500"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
                 fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ flexShrink: 0, marginTop: '2px', color: '#111' }}
                 variants={tickVariants}
               >
-                <path d="M5 13l4 4L19 7" />
+                <path
+                  d="M3 8.5L6.5 12L13 5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </motion.svg>
 
-              <span className="text-sm text-gray-700">{feature}</span>
+              <span style={{
+                fontSize: '13.5px',
+                color: '#444',
+                lineHeight: '1.45',
+                fontWeight: 400,
+              }}>
+                {feature}
+              </span>
             </motion.li>
           ))}
         </motion.ul>

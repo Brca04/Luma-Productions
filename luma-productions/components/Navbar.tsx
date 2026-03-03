@@ -10,21 +10,20 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const navItems = [
-    { name: 'Početna', href: '/' },
-    { name: 'Maturalne Večeri', href: '/maturalne-veceri' },
-    { name: 'Vjenčanja', href: '/vjencanja' },
-    { name: 'Krštenja', href: '/krstenja' },
-    { name: 'Reklamna produkcija', href: '/reklame' },
-    { name: 'Kontakt', href: '/kontakt' },
+    { name: 'POČETNA', href: '/' },
+    { name: 'REKLAME', href: '/reklame' },
+    { name: 'MATURALNE VEČERI', href: '/maturalne-veceri' },
+    { name: 'VJENČANJA', href: '/vjencanja' },
+    { name: 'PHOTOBOOTH', href: '/krstenja' },
+    { name: 'KONTAKT', href: '/kontakt' },
   ];
 
   const isActive = (href: string) => pathname === href;
 
   return (
-    <nav className="bg-white shadow-lg fixed w-full top-0 z-50">
+    <nav className="bg-black shadow-lg fixed w-full top-0 z-50">
       <div className="px-8 md:px-8 lg:px-12">
         <div className="flex justify-between items-center h-24 relative">
-
           {/* Menu button */}
           <div className="z-50">
             <button
@@ -66,7 +65,6 @@ export default function Navbar() {
 
           {/* Spacer to balance hamburger button */}
           <div className="w-[35px]"></div>
-
         </div>
       </div>
 
@@ -80,7 +78,7 @@ export default function Navbar() {
 
       {/* Mobile: Full-screen menu */}
       <div
-        className={`lg:hidden fixed inset-0 bg-white text-black flex flex-col items-center justify-center transition-opacity duration-300 z-40
+        className={`lg:hidden fixed inset-0 bg-black text-white flex flex-col items-center justify-center transition-opacity duration-300 z-40
           ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
         `}
       >
@@ -89,16 +87,14 @@ export default function Navbar() {
             key={item.href}
             href={item.href}
             className={`relative text-3xl py-4 transition-colors group inline-block ${
-              isActive(item.href) ? 'text-[#be9d5a]' : 'text-gray-700'
+              isActive(item.href) ? 'text-[#be9d5a]' : 'text-white'
             }`}
             onClick={() => setIsOpen(false)}
           >
             {item.name}
             {/* Golden underline - only on hover, not on active */}
             {!isActive(item.href) && (
-              <span
-                className="absolute bottom-2 left-1/2 -translate-x-1/2 h-[3px] bg-[#be9d5a] w-0 group-hover:w-full transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
-              />
+              <span className="absolute bottom-2 left-1/2 -translate-x-1/2 h-[3px] bg-[#be9d5a] w-0 group-hover:w-full transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" />
             )}
           </Link>
         ))}
@@ -106,26 +102,24 @@ export default function Navbar() {
 
       {/* Desktop: Side menu */}
       <div
-        className={`hidden lg:block fixed inset-y-0 left-0 w-80 bg-white shadow-2xl transition-transform duration-300 z-40 ${
+        className={`hidden lg:block fixed inset-y-0 left-0 w-80 bg-black shadow-2xl transition-transform duration-300 z-40 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="flex flex-col h-full pt-32 px-8 items-center">
+        <div className="flex flex-col h-full pt-32 px-8">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={`relative text-xl py-6 transition-colors group inline-block ${
-                isActive(item.href) ? 'text-[#be9d5a]' : 'text-gray-700'
+                isActive(item.href) ? 'text-[#be9d5a]' : 'text-white'
               }`}
               onClick={() => setIsOpen(false)}
             >
               {item.name}
               {/* Golden underline - only on hover, not on active */}
               {!isActive(item.href) && (
-                <span
-                  className="absolute bottom-4 left-1/2 -translate-x-1/2 h-[2px] bg-[#be9d5a] w-0 group-hover:w-full transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                />
+                <span className="absolute bottom-4 left-1/2 -translate-x-1/2 h-[2px] bg-[#be9d5a] w-0 group-hover:w-full transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" />
               )}
             </Link>
           ))}

@@ -134,8 +134,145 @@ export default function MaturalneVeceri() {
   return (
     <div className="min-h-screen">
 
-      {/* Gallery Slider Section */}
-      <section>
+      {/* Hero Section — VIVID PARTZ */}
+      <section className="relative h-[calc(100dvh-4rem)] flex items-center justify-center overflow-hidden" style={{background:'#black'}}>
+
+        <style>{`
+          @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400&display=swap');
+
+          @keyframes pRise {
+            from { opacity:0; transform: translateY(60px) skewY(3deg); }
+            to   { opacity:1; transform: translateY(0) skewY(0deg); }
+          }
+          @keyframes pFade {
+            from { opacity:0; transform: translateY(16px); }
+            to   { opacity:1; transform: translateY(0); }
+          }
+          @keyframes scrollDrop {
+            0%,100% { transform: translateY(0); opacity:1; }
+            50%     { transform: translateY(8px); opacity:0.3; }
+          }
+          .p-tag {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #BE9E5C;
+            opacity: 0;
+            animation: pFade 0.6s ease 0.3s forwards;
+          }
+          .p-word {
+            font-family: 'Bebas Neue', 'Impact', sans-serif;
+            font-size: clamp(5rem, 13vw, 11rem);
+            line-height: 0.88;
+            color: #fff;
+            display: block;
+            letter-spacing: 0.01em;
+          }
+          .p-word-1 {
+            opacity: 0;
+            animation: pRise 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+          }
+          .p-word-2 {
+            opacity: 0;
+            animation: pRise 0.8s cubic-bezier(0.16,1,0.3,1) 0.75s forwards;
+            color: #BE9E5C;
+          }
+          .p-desc {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.9;
+            font-weight: 300;
+            letter-spacing: 0.01em;
+            opacity: 0;
+            animation: pFade 0.8s ease 1.3s forwards;
+          }
+          .p-scroll {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: pFade 0.8s ease 1.8s forwards;
+          }
+          .p-scroll-label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+          }
+          .p-scroll-dot {
+            width: 4px; height: 4px; border-radius: 50%;
+            background: #BE9E5C;
+            animation: scrollDrop 1.6s ease-in-out 2s infinite;
+          }
+        `}</style>
+
+        {/* Background video — place your video at /public/hero-bg.mp4 */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
+        >
+          <source src="/hero-bg.mp4" type="video/mp4" />
+        </video>
+
+        {/* Dark overlay — left side heavier so text stays readable */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'black',
+          pointerEvents: 'none',
+        }} />
+
+        {/* Content */}
+        <div style={{
+          position: 'relative',
+          zIndex: 10,
+          width: '100%',
+          maxWidth: '1280px',
+          margin: '0 auto',
+          padding: '0 2rem',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '0 3rem',
+          alignItems: 'center',
+        }}>
+          {/* Left: Title */}
+          <div>
+            <h1 style={{margin: 0}}>
+              <span className="p-word p-word-1">Maturalne</span>
+              <span className="p-word p-word-2" style={{marginTop: '0.05em'}}>Večeri</span>
+            </h1>
+          </div>
+
+          {/* Right: Description */}
+          <div>
+            <p className="p-desc">
+              Profesionalna fotografija i video produkcija koja čuva najljepše trenutke vaše maturalne večeri. Vrhunska kvaliteta, pristupačni paketi, nezaboravne uspomene.
+            </p>
+          </div>
+        </div>
+      </section>
+
+            {/* Gallery Slider Section */}
+      <section id="galerija">
         <div className="h-[calc(100dvh-4rem)] text-center">
         <ImageSlider images={galleryImages} />
         </div>
