@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function Footer() {
   return (
-    <footer className="bg-white text-black py-8 md:py-8">
+    <footer className="bg-transparent text-black py-8 md:py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Golden Line Above Footer */}

@@ -132,7 +132,7 @@ export default function MaturalneVeceri() {
   } as const;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-black text-white">
 
       {/* Hero Section — VIVID PARTZ */}
       <section className="relative h-[calc(100dvh-4rem)] flex items-center justify-center overflow-hidden" style={{background:'#black'}}>
