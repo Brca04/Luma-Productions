@@ -109,7 +109,7 @@ export default function Home() {
       {/* Hero Section */}
       <section
   ref={heroRef as any}
-  className="relative h-[calc(100dvh-4rem)] flex items-end text-white overflow-hidden"
+  className="relative h-screen flex items-end text-white overflow-hidden"
 >
 
         {/* Parallax background layer */}

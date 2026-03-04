@@ -21,7 +21,7 @@ export default function Navbar() {
   const isActive = (href: string) => pathname === href;
 
   return (
-    <nav className="bg-black shadow-lg fixed w-full top-0 z-50">
+    <nav className="absolute w-full top-0 z-50 bg-transparent">
       <div className="px-8 md:px-8 lg:px-12">
         <div className="flex justify-between items-center h-24 relative">
           {/* Menu button */}
