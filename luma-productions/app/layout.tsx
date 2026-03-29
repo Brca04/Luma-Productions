@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   description:
     "Profesionalna fotografija za vjenčanja, maturalne večeri, krštenja i reklame. Vrhunska kvaliteta i pristupačne cijene.",
   icons: {
-    icon: "/lumaLogo.ico",
-    apple: "/lumaLogoApple.png",
+    icon: "/luma-productions-logo-225x300.webp",
+    apple: "/luma-productions-logo-225x300.webp",
   },
   keywords: [
     "fotografija",

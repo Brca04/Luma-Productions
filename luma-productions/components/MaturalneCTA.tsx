@@ -48,7 +48,7 @@ export default function MaturalneCTA() {
           Kontaktirajte nas i osigurajte nezaboravnu dokumentaciju vaše maturalne večeri.
         </p>
         <Link
-          href="/#kontakt"
+          href="/kontakt"
           style={{
             display: "inline-flex",
             alignItems: "center",
