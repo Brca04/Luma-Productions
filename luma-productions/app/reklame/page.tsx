@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import PricingCard from '@/components/PricingCard';
+import ReklameHero from '@/components/ReklameHero';
+import ZadovoljniKlijenti from '@/components/ZadovoljniKlijenti';
 
 export const metadata: Metadata = {
   title: 'Komercijalna i Reklamna Fotografija',
@@ -113,7 +115,7 @@ export default function Reklame() {
 
   return (
     <div className="min-h-screen">
-      
+      <ReklameHero />
 
       {/* Description Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -183,7 +185,7 @@ export default function Reklame() {
         </div>
       </section>
 
-      
+      <ZadovoljniKlijenti />
     </div>
   );
 }

@@ -22,37 +22,39 @@ export default function Navbar() {
 
   return (
     <nav className="absolute w-full top-0 z-50 bg-transparent">
-      <div className="px-8 md:px-8 lg:px-12">
-        <div className="flex justify-between items-center h-24 relative">
+      <div className="px-6 md:px-8 lg:px-12">
+        <div className="flex justify-between items-center h-20 md:h-24 relative">
 
-          {/* Hamburger button - hides when menu is open */}
+          {/* Hamburger — 44×44 touch target */}
           <div className={`z-50 transition-opacity duration-300 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
             <button
               onClick={() => setIsOpen(true)}
               aria-label="Open menu"
-              className="group relative flex h-[20px] w-[30px] flex-col justify-between focus:outline-none"
+              className="flex items-center justify-center w-11 h-11 -ml-2 focus:outline-none"
             >
-              <span className="h-[1.5px] w-full bg-[#be9d5a]" />
-              <span className="h-[1.5px] w-full bg-[#be9d5a]" />
-              <span className="h-[2px] w-full bg-[#be9d5a]" />
+              <span className="flex flex-col justify-between w-[26px] h-[18px]">
+                <span className="h-[1.5px] w-full bg-[#be9d5a]" />
+                <span className="h-[1.5px] w-full bg-[#be9d5a]" />
+                <span className="h-[1.5px] w-full bg-[#be9d5a]" />
+              </span>
             </button>
           </div>
 
           {/* Logo centered */}
-          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             <Link href="/" className="flex items-center">
               <Image
                 src="/luma-productions-logo-225x300.webp"
                 width={128}
                 height={160}
-                className="w-32 h-40 object-contain"
+                className="w-20 h-24 md:w-28 md:h-36 object-contain"
                 alt="Luma Productions Logo"
                 priority
               />
             </Link>
           </div>
 
-          <div className="w-[30px]" />
+          <div className="w-11" />
         </div>
       </div>
 
@@ -70,29 +72,39 @@ export default function Navbar() {
         className={`lg:hidden fixed inset-0 z-40 flex flex-col items-center justify-center transition-opacity duration-500 ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
+        style={{
+          paddingTop: 'env(safe-area-inset-top, 0px)',
+          paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+        }}
       >
-        {/* Back arrow - top left */}
+        {/* Close button — 44×44 touch target */}
         <button
           onClick={() => setIsOpen(false)}
-          className="absolute top-8 left-8 flex items-center gap-2 text-[#be9d5a]/60 hover:text-[#be9d5a] transition-colors duration-300"
+          className="absolute flex items-center justify-center w-11 h-11 text-[#be9d5a]/60 hover:text-[#be9d5a] transition-colors duration-300"
+          style={{
+            top: 'max(1.5rem, calc(env(safe-area-inset-top, 0px) + 0.75rem))',
+            left: '1.5rem',
+          }}
           aria-label="Close menu"
         >
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
             <path d="M18 6L10 14L18 22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
 
         {/* Decorative top line */}
-        <div className={`absolute top-28 left-1/2 -translate-x-1/2 h-px bg-gradient-to-r from-transparent via-[#be9d5a] to-transparent transition-all duration-700 ${isOpen ? 'w-48 opacity-100' : 'w-0 opacity-0'}`} />
+        <div className={`absolute left-1/2 -translate-x-1/2 h-px bg-gradient-to-r from-transparent via-[#be9d5a] to-transparent transition-all duration-700 ${isOpen ? 'w-48 opacity-100' : 'w-0 opacity-0'}`}
+          style={{ top: 'max(7rem, calc(env(safe-area-inset-top, 0px) + 5rem))' }}
+        />
 
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center gap-0 w-full px-8">
           {navItems.map((item, i) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setIsOpen(false)}
               style={{ transitionDelay: isOpen ? `${i * 60}ms` : '0ms' }}
-              className={`relative group px-8 py-3 tracking-[0.25em] text-2xl font-light transition-all duration-500 ${
+              className={`relative group flex items-center justify-center w-full py-4 tracking-[0.25em] text-xl font-light transition-all duration-500 ${
                 isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               } ${isActive(item.href) ? 'text-[#be9d5a]' : 'text-black/70 hover:text-black'}`}
             >
@@ -101,7 +113,7 @@ export default function Navbar() {
               )}
               {item.name}
               {!isActive(item.href) && (
-                <span className="absolute bottom-2 left-8 h-px bg-[#be9d5a]/60 w-0 group-hover:w-[calc(100%-4rem)] transition-all duration-500 ease-out" />
+                <span className="absolute bottom-2.5 left-0 h-px bg-[#be9d5a]/60 w-0 group-hover:w-full transition-all duration-500 ease-out" />
               )}
             </Link>
           ))}
@@ -118,13 +130,13 @@ export default function Navbar() {
         }`}
         style={{ background: '#ffffff', borderRight: '1px solid rgba(190,157,90,0.25)' }}
       >
-        {/* Back arrow inside panel */}
+        {/* Close button */}
         <button
           onClick={() => setIsOpen(false)}
-          className="absolute top-8 right-8 flex items-center gap-2 text-[#be9d5a]/60 hover:text-[#be9d5a] transition-colors duration-300"
+          className="absolute top-8 right-8 flex items-center justify-center w-11 h-11 text-[#be9d5a]/60 hover:text-[#be9d5a] transition-colors duration-300"
           aria-label="Close menu"
         >
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
             <path d="M18 6L10 14L18 22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>

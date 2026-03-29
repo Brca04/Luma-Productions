@@ -1,8 +1,11 @@
-// app/maturalne-veceri/page.tsx (or wherever this page lives)
+// app/maturalne-veceri/page.tsx
 
 import { Metadata } from 'next';
 import PricingCard from '@/components/PricingCard';
 import ImageSlider from '@/components/ImageSlider';
+import MaturalneTitleSection from '@/components/MaturalneTitleSection';
+import AnimatedSectionHeading from '@/components/AnimatedSectionHeading';
+import MaturalneCTA from '@/components/MaturalneCTA';
 
 export const metadata: Metadata = {
   title: 'Fotografija Maturalne Večeri',
@@ -15,10 +18,7 @@ export const metadata: Metadata = {
   },
 };
 
-type PlanCategory = 'foto' | 'video' | 'mix';
-
-type PricingPlan = {
-  category: PlanCategory;
+export type PricingPlan = {
   name: string;
   price: string;
   imageSrc: string;
@@ -30,7 +30,6 @@ type PricingPlan = {
 export default function MaturalneVeceri() {
   const pricingPlans: PricingPlan[] = [
     {
-      category: 'foto',
       name: 'Foto #1',
       price: '8€/maturant',
       imageSrc: '/prikaz.webp',
@@ -42,7 +41,6 @@ export default function MaturalneVeceri() {
       ],
     },
     {
-      category: 'foto',
       name: 'Foto #2',
       price: '5€/maturant',
       imageSrc: '/prikaz2.webp',
@@ -54,7 +52,6 @@ export default function MaturalneVeceri() {
       ],
     },
     {
-      category: 'video',
       name: 'Video #1',
       price: '7€/maturant',
       imageSrc: '/prikaz.webp',
@@ -65,7 +62,6 @@ export default function MaturalneVeceri() {
       ],
     },
     {
-      category: 'video',
       name: 'Video #2',
       price: '7€/maturant',
       imageSrc: '/prikaz2.webp',
@@ -77,7 +73,6 @@ export default function MaturalneVeceri() {
       ],
     },
     {
-      category: 'mix',
       name: 'Mix #1',
       price: '13€/maturant',
       imageSrc: '/prikaz.webp',
@@ -91,7 +86,6 @@ export default function MaturalneVeceri() {
       ],
     },
     {
-      category: 'mix',
       name: 'Mix #2',
       price: '10€/maturant',
       imageSrc: '/prikaz2.webp',
@@ -118,24 +112,11 @@ export default function MaturalneVeceri() {
     { id: 9, alt: 'Maturalna večer 9', src: '/prikaz2.webp' },
   ];
 
-  // group + sort (#1 before #2)
-  const byNumber = (a: { name: string }, b: { name: string }) => {
-    const numA = Number(a.name.match(/\d+/)?.[0] ?? 0);
-    const numB = Number(b.name.match(/\d+/)?.[0] ?? 0);
-    return numA - numB;
-  };
-
-  const groupedPlans = {
-    foto: pricingPlans.filter((p) => p.category === 'foto').sort(byNumber),
-    video: pricingPlans.filter((p) => p.category === 'video').sort(byNumber),
-    mix: pricingPlans.filter((p) => p.category === 'mix').sort(byNumber),
-  } as const;
-
   return (
     <div className="min-h-screen bg-black text-white">
 
-      {/* Hero Section — VIVID PARTZ */}
-      <section className="relative h-[calc(100dvh-4rem)] flex items-center justify-center overflow-hidden" style={{background:'#black'}}>
+      {/* ── Hero ── */}
+      <section className="relative h-[100dvh] overflow-hidden">
 
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400&display=swap');
@@ -191,7 +172,7 @@ export default function MaturalneVeceri() {
           }
           .p-scroll {
             position: absolute;
-            bottom: 2.5rem;
+            bottom: max(2.5rem, env(safe-area-inset-bottom, 0px) + 1.5rem);
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -200,6 +181,7 @@ export default function MaturalneVeceri() {
             gap: 8px;
             opacity: 0;
             animation: pFade 0.8s ease 1.8s forwards;
+            z-index: 10;
           }
           .p-scroll-label {
             font-family: 'DM Sans', sans-serif;
@@ -215,112 +197,57 @@ export default function MaturalneVeceri() {
           }
         `}</style>
 
-        {/* Background video — place your video at /public/hero-bg.mp4 */}
         <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center',
-          }}
+          autoPlay muted loop playsInline
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
         >
-          <source src="/hero-bg.mp4" type="video/mp4" />
+          <source src="/videoMaturalne.mp4" type="video/mp4" />
         </video>
 
-        {/* Dark overlay — left side heavier so text stays readable */}
+<div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)', pointerEvents: 'none' }} />
+
+        {/* Fade-to-black gradient at bottom of hero */}
         <div style={{
           position: 'absolute',
-          inset: 0,
-          background: 'black',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: '180px',
+          background: 'linear-gradient(to bottom, transparent, #000)',
           pointerEvents: 'none',
+          zIndex: 5,
         }} />
 
-        {/* Content */}
-        <div style={{
-          position: 'relative',
-          zIndex: 10,
-          width: '100%',
-          maxWidth: '1280px',
-          margin: '0 auto',
-          padding: '0 2rem',
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '0 3rem',
-          alignItems: 'center',
-        }}>
-          {/* Left: Title */}
-          <div>
-            <h1 style={{margin: 0}}>
-              <span className="p-word p-word-1">Maturalne</span>
-              <span className="p-word p-word-2" style={{marginTop: '0.05em'}}>Večeri</span>
-            </h1>
-          </div>
+      </section>
 
-          {/* Right: Description */}
-          <div>
-            <p className="p-desc">
-              Profesionalna fotografija i video produkcija koja čuva najljepše trenutke vaše maturalne večeri. Vrhunska kvaliteta, pristupačni paketi, nezaboravne uspomene.
-            </p>
-          </div>
+      <MaturalneTitleSection />
+
+      {/* ── Gallery ── */}
+      <section id="galerija" className="bg-black h-screen flex flex-col">
+        <div className="px-4 sm:px-6 pt-10 pb-6 text-center flex-shrink-0">
+          <AnimatedSectionHeading label="Naši radovi" title="Galerija" />
+        </div>
+        <div className="flex-1 min-h-0">
+          <ImageSlider images={galleryImages} />
         </div>
       </section>
 
-            {/* Gallery Slider Section */}
-      <section id="galerija">
-        <div className="h-[calc(100dvh-4rem)] text-center">
-        <ImageSlider images={galleryImages} />
-        </div>
-      </section>
-
-      {/* Pricing Section (Grouped with headings) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h2 className="text-4xl font-bold text-center mb-4">Naši Paketi</h2>
-        <p className="text-center text-gray-600 mb-12 text-lg">
-          Odaberite paket koji najbolje odgovara vašim potrebama
-        </p>
-
-        {/* FOTO */}
-        <div className="mb-16">
-          <div className="flex items-center gap-4 mb-6">
-            <h3 className="text-3xl font-bold">Foto</h3>
+      {/* ── Pricing ── */}
+      <section className="bg-black py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-16">
+            <AnimatedSectionHeading label="Odaberite paket" title="Naši Paketi" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {groupedPlans.foto.map((plan) => (
-              <PricingCard key={plan.name} plan={plan} />
-            ))}
-          </div>
-        </div>
-
-        {/* VIDEO */}
-        <div className="mb-16">
-          <div className="flex items-center gap-4 mb-6">
-            <h3 className="text-3xl font-bold">Video</h3>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {groupedPlans.video.map((plan) => (
-              <PricingCard key={plan.name} plan={plan} />
-            ))}
-          </div>
-        </div>
-
-        {/* MIX */}
-        <div>
-          <div className="flex items-center gap-4 mb-6">
-            <h3 className="text-3xl font-bold">Mix</h3>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {groupedPlans.mix.map((plan) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {pricingPlans.map((plan) => (
               <PricingCard key={plan.name} plan={plan} />
             ))}
           </div>
         </div>
       </section>
+
+      <MaturalneCTA />
+
     </div>
   );
 }

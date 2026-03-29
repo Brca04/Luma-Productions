@@ -3,13 +3,10 @@
 import { motion, type Variants } from 'framer-motion';
 import Image from 'next/image';
 
-type PlanCategory = 'foto' | 'video' | 'mix';
-
 export interface PricingPlan {
-  category: PlanCategory;
   name: string;
   price: string;
-  priceLabel?: string; // e.g. "PER SEAT" or "EACH"
+  priceLabel?: string;
   features: string[];
   imageSrc?: string;
   imageAlt?: string;
@@ -22,11 +19,7 @@ interface PricingCardProps {
 
 const listVariants: Variants = {
   hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.07,
-    },
-  },
+  show: { transition: { staggerChildren: 0.07 } },
 };
 
 const itemVariants: Variants = {
@@ -34,10 +27,7 @@ const itemVariants: Variants = {
   show: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.22,
-      ease: [0.16, 1, 0.3, 1],
-    },
+    transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
@@ -47,11 +37,7 @@ const tickVariants: Variants = {
     scale: 1,
     rotate: 0,
     opacity: 1,
-    transition: {
-      type: 'spring',
-      stiffness: 260,
-      damping: 18,
-    },
+    transition: { type: 'spring', stiffness: 260, damping: 18 },
   },
 };
 
@@ -65,16 +51,18 @@ export default function PricingCard({ plan }: PricingCardProps) {
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
       style={{
         fontFamily: "'DM Sans', 'Helvetica Neue', Arial, sans-serif",
-        background: '#ffffff',
-        border: plan.highlighted ? '1.5px solid black' : '1.5px solid black',
+        background: '#0a0a0a',
+        border: plan.highlighted
+          ? '1.5px solid #BE9E5C'
+          : '1.5px solid rgba(255,255,255,0.1)',
         boxShadow: plan.highlighted
-          ? '0 2px 16px 0 rgba(0,0,0,0.10)'
-          : '0 1px 4px 0 rgba(0,0,0,0.05)',
+          ? '0 0 32px 0 rgba(190,158,92,0.12)'
+          : '0 1px 4px 0 rgba(0,0,0,0.4)',
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
         overflow: 'hidden',
-        transition: 'box-shadow 0.2s',
+        transition: 'box-shadow 0.2s, border-color 0.2s',
       }}
     >
       {/* Optional image */}
@@ -88,37 +76,45 @@ export default function PricingCard({ plan }: PricingCardProps) {
             sizes="(min-width: 768px) 33vw, 100vw"
             priority={!!plan.highlighted}
           />
+          {/* Subtle dark gradient over image bottom */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to bottom, transparent 50%, #0a0a0a 100%)',
+            pointerEvents: 'none',
+          }} />
         </div>
       )}
 
       <div style={{ padding: '24px 28px 28px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
 
         {/* Name row */}
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '20px' }}>
           <span style={{
-            fontSize: '32px',
-            fontWeight: 700,
-            letterSpacing: '-0.02em',
-            color: '#111',
+            fontFamily: "'Bebas Neue', 'Impact', sans-serif",
+            fontSize: '36px',
+            fontWeight: 400,
+            letterSpacing: '0.04em',
+            color: '#fff',
             lineHeight: 1,
           }}>
             {plan.name}
           </span>
           {plan.priceLabel && (
             <span style={{
-              fontSize: '11px',
+              fontSize: '10px',
               fontWeight: 600,
-              letterSpacing: '0.1em',
+              letterSpacing: '0.15em',
               textTransform: 'uppercase',
-              color: '#aaa',
+              color: '#BE9E5C',
             }}>
               {plan.priceLabel}
             </span>
           )}
         </div>
 
-        {/* Hairline divider */}
-        <div style={{ borderTop: '1px solid #ebebeb', marginBottom: '20px' }} />
+        {/* Gold hairline divider */}
+        <div style={{ borderTop: '1px solid rgba(190,158,92,0.25)', marginBottom: '20px' }} />
 
         {/* Feature list */}
         <motion.ul
@@ -139,14 +135,14 @@ export default function PricingCard({ plan }: PricingCardProps) {
               }}
               variants={itemVariants}
             >
-              {/* Thin checkmark matching screenshot style */}
+              {/* Gold checkmark */}
               <motion.svg
                 width="16"
                 height="16"
                 viewBox="0 0 16 16"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                style={{ flexShrink: 0, marginTop: '2px', color: '#111' }}
+                style={{ flexShrink: 0, marginTop: '2px', color: '#BE9E5C' }}
                 variants={tickVariants}
               >
                 <path
@@ -160,26 +156,34 @@ export default function PricingCard({ plan }: PricingCardProps) {
 
               <span style={{
                 fontSize: '13.5px',
-                color: '#444',
+                color: 'rgba(255,255,255,0.55)',
                 lineHeight: '1.45',
-                fontWeight: 400,
+                fontWeight: 300,
               }}>
                 {feature}
               </span>
             </motion.li>
           ))}
         </motion.ul>
+
+        {/* Price footer */}
         <motion.div
-          style={{ marginTop: 'auto', paddingTop: '20px', textAlign: 'center', borderTop: '1px solid #ebebeb' }}
+          style={{
+            marginTop: 'auto',
+            paddingTop: '20px',
+            textAlign: 'center',
+            borderTop: '1px solid rgba(190,158,92,0.25)',
+          }}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.4 }}
         >
           <span style={{
-            fontSize: '32px',
-            fontWeight: 700,
-            letterSpacing: '-0.02em',
-            color: '#111',
+            fontFamily: "'Bebas Neue', 'Impact', sans-serif",
+            fontSize: '36px',
+            fontWeight: 400,
+            letterSpacing: '0.04em',
+            color: '#BE9E5C',
             lineHeight: 1,
           }}>
             {plan.price}

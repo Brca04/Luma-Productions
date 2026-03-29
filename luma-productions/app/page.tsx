@@ -193,6 +193,7 @@ export default function Home() {
           variants={fadeInUp}
           className="text-center mb-16"
         >
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">Naše Usluge</h2>
           <motion.div
             initial={shouldReduceMotion ? false : { scaleX: 0 }}
             whileInView={shouldReduceMotion ? undefined : { scaleX: 1 }}
@@ -203,7 +204,6 @@ export default function Home() {
             className="w-24 h-1 mx-auto mb-6"
             style={{ backgroundColor: "#BE9E5C" }}
           />
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Naše Usluge</h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
             Od maturalnih večeri do vjenčanja, pružamo profesionalnu fotografsku uslugu za sve vaše posebne trenutke
           </p>
@@ -274,7 +274,7 @@ export default function Home() {
       </section>
 
       {/* Latest Work Section */}
-      <section className="bg-white">
+      <section className="bg-white pb-16">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial="hidden"
@@ -284,6 +284,7 @@ export default function Home() {
             className="mb-20"
           >
             <div className="text-center mb-12">
+              <h2 className="text-5xl md:text-6xl font-bold mb-4">Najnoviji radovi</h2>
               <motion.div
                 initial={shouldReduceMotion ? false : { scaleX: 0 }}
                 whileInView={shouldReduceMotion ? undefined : { scaleX: 1 }}
@@ -294,7 +295,6 @@ export default function Home() {
                 className="w-24 h-1 mx-auto mb-6"
                 style={{ backgroundColor: "#BE9E5C" }}
               />
-              <h2 className="text-5xl md:text-6xl font-bold mb-4">Najnoviji radovi</h2>
               <p className="text-gray-500 text-lg max-w-xl mx-auto">
                 Pogledajte naše nedavne projekte i uspomene koje smo stvorili
               </p>

@@ -21,90 +21,89 @@ interface ImageSliderProps {
   images: GalleryImage[];
 }
 
-const SLOT_STEP_VW = 28;
+// ─── layout constants ───────────────────────────────────────────────────────
 
-// Anchors for slot distances -2,-1,0,1,2 (in vw) — increased spacing
-const BASE_X_VW = [-65, -35, 0, 35, 65];
-const BASE_Z = [1, 2, 10, 2, 1];
+// Desktop: fan of 5 cards
+const DESK_X_VW   = [-62, -33, 0, 33, 62];
+const DESK_SLOT   = 28; // vw per slot for drag sensitivity
 
-const BASE_SIZE = { w: 'clamp(280px, 82vw, 500px)', h: 'clamp(320px, 63vh, 580px)' };
-// no rounded corners
-const BASE_ROUNDED = '';
+// Mobile: full-bleed center, neighbours barely peek in
+const MOB_X_VW    = [-92, -90, 0, 90, 92];
+const MOB_SLOT    = 80;
 
-// scale only (cards remain opaque; de-emphasis is via overlay, not transparency)
-function interpScale(dist: number) {
-  const d = Math.abs(dist);
-  if (d <= 1) return 1.0 - 0.27 * d;
-  if (d <= 2) return 0.73 - 0.23 * (d - 1);
-  return Math.max(0.35, 0.5 - 0.1 * (d - 2));
+const BASE_Z      = [1, 2, 10, 2, 1];
+const SHOW        = 2.0;
+const FADE_END    = 2.4;
+const SNAP_SPRING = { type: 'spring' as const, stiffness: 300, damping: 32 };
+
+// ─── math helpers ───────────────────────────────────────────────────────────
+
+function interpX(dist: number, anchors: number[]) {
+  const d = Math.max(-2, Math.min(2, dist));
+  if (d <= -1) return anchors[0] + (anchors[1] - anchors[0]) * (d + 2);
+  if (d <=  0) return anchors[1] + (anchors[2] - anchors[1]) * (d + 1);
+  if (d <=  1) return anchors[2] + (anchors[3] - anchors[2]) * d;
+               return anchors[3] + (anchors[4] - anchors[3]) * (d - 1);
 }
 
-// Interpolate X in vw for any dist in [-2,2] (linear between anchors)
-function interpXvw(dist: number) {
-  const d = Math.max(-2, Math.min(2, dist));
+function interpScale(dist: number, mobile: boolean) {
+  const d = Math.abs(dist);
+  if (mobile) {
+    // on mobile neighbouring cards are off-screen so scale doesn't matter much
+    if (d < 0.3)  return 1;
+    if (d <= 1)   return 1 - 0.08 * d;
+    return 0.92;
+  }
+  if (d <= 1) return 1 - 0.26 * d;
+  if (d <= 2) return 0.74 - 0.22 * (d - 1);
+  return Math.max(0.36, 0.52 - 0.1 * (d - 2));
+}
 
-  if (d <= -1) {
-    const t = d - -2; // 0..1
-    return BASE_X_VW[0] + (BASE_X_VW[1] - BASE_X_VW[0]) * t;
-  }
-  if (d <= 0) {
-    const t = d - -1; // 0..1
-    return BASE_X_VW[1] + (BASE_X_VW[2] - BASE_X_VW[1]) * t;
-  }
-  if (d <= 1) {
-    const t = d - 0; // 0..1
-    return BASE_X_VW[2] + (BASE_X_VW[3] - BASE_X_VW[2]) * t;
-  }
-  const t = d - 1; // 0..1
-  return BASE_X_VW[3] + (BASE_X_VW[4] - BASE_X_VW[3]) * t;
+function shade(dist: number) {
+  const a = Math.abs(dist);
+  if (a < 0.1)  return 0;
+  if (a > 1.8)  return 0.5;
+  return 0.16 + (a - 0.1) * 0.22;
 }
 
 function zForDist(dist: number) {
-  const r = Math.round(dist); // nearest slot
-  const idx = r + 2; // -2..2 => 0..4
-  if (idx < 0 || idx > 4) return 0;
-  return BASE_Z[idx];
+  const idx = Math.round(dist) + 2;
+  return idx >= 0 && idx <= 4 ? BASE_Z[idx] : 0;
 }
 
-// shortest wrapped distance from image index i to float position pos
 function wrappedDist(i: number, pos: number, n: number) {
-  const raw = i - pos;
+  const raw  = i - pos;
   const half = n / 2;
   let d = ((raw + half) % n + n) % n - half;
-  if (d === -half) d = half; // even-n edge
+  if (d === -half) d = half;
   return d;
 }
 
-const SNAP_SPRING = { type: 'spring' as const, stiffness: 320, damping: 30 };
-
-// only show 5 “real” cards: |dist| <= 2
-// fade out quickly just outside that so nothing else appears
-const SHOW = 2.0;
-const FADE_END = 2.35;
+// ─── component ──────────────────────────────────────────────────────────────
 
 export default function ImageSlider({ images }: ImageSliderProps) {
   const n = images.length;
-
   const wrapIndex = useCallback((i: number) => ((i % n) + n) % n, [n]);
 
-  // Center position in index space (continuous)
-  const positionMV = useMotionValue(0);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)');
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
-  // Smooth visuals
-  const positionSpring = useSpring(positionMV, {
-    stiffness: 140,
-    damping: 22,
-    mass: 0.9,
-  });
+  const positionMV     = useMotionValue(0);
+  const positionSpring = useSpring(positionMV, { stiffness: 130, damping: 24, mass: 0.85 });
 
-  // Dots: only update when rounded index changes
-  const [dotIndex, setDotIndex] = useState(0);
-  const lastRoundedRef = useRef<number>(0);
+  // active dot
+  const [dotIndex, setDotIndex]   = useState(0);
+  const lastRoundedRef            = useRef(0);
 
   useEffect(() => {
     lastRoundedRef.current = Math.round(positionMV.get());
     setDotIndex(wrapIndex(lastRoundedRef.current));
-
     return positionMV.on('change', (pos) => {
       const r = Math.round(pos);
       if (r === lastRoundedRef.current) return;
@@ -113,110 +112,109 @@ export default function ImageSlider({ images }: ImageSliderProps) {
     });
   }, [positionMV, wrapIndex]);
 
-  // dragging
-  const isPointerDown = useRef(false);
-  const hasDragged = useRef(false);
-  const pointerStartX = useRef(0);
-  const pointerStartPos = useRef(0);
-
-  const lastMoveX = useRef(0);
-  const lastMoveT = useRef(0);
-  const velocitySlotsPerSec = useRef(0);
+  // drag state
+  const isDown          = useRef(false);
+  const hasDragged      = useRef(false);
+  const startX          = useRef(0);
+  const startPos        = useRef(0);
+  const lastX           = useRef(0);
+  const lastT           = useRef(0);
+  const velocity        = useRef(0);
+  const paused          = useRef(false);
+  const resumeTimer     = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const snapTo = useCallback(
     (target: number, vel = 0) =>
       animate(positionMV, Math.round(target), { ...SNAP_SPRING, velocity: vel }),
-    [positionMV]
+    [positionMV],
   );
 
-  // Go to an index via shortest wrapped path
   const goToIndex = useCallback(
-    (targetIndex: number, vel = 0) => {
-      const cur = Math.round(positionMV.get());
+    (idx: number, vel = 0) => {
+      const cur  = Math.round(positionMV.get());
       const curW = wrapIndex(cur);
-
-      let diff = targetIndex - curW;
-      if (diff > n / 2) diff -= n;
+      let diff   = idx - curW;
+      if (diff >  n / 2) diff -= n;
       if (diff < -n / 2) diff += n;
-
       snapTo(cur + diff, vel);
     },
-    [n, positionMV, snapTo, wrapIndex]
+    [n, positionMV, snapTo, wrapIndex],
   );
 
+  const goNext = useCallback(() => snapTo(positionMV.get() + 1), [positionMV, snapTo]);
+
+  const pauseAndResume = useCallback(() => {
+    paused.current = true;
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+    resumeTimer.current = setTimeout(() => { paused.current = false; }, 3500);
+  }, []);
+
+  // auto-advance
+  useEffect(() => {
+    const id = setInterval(() => { if (!paused.current) goNext(); }, 5000);
+    return () => clearInterval(id);
+  }, [goNext]);
+
+  // pointer handlers
   const onPointerDown = (e: React.PointerEvent) => {
-    isPointerDown.current = true;
+    isDown.current    = true;
     hasDragged.current = false;
+    paused.current    = true;
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
 
-    pointerStartX.current = e.clientX;
-    pointerStartPos.current = positionMV.get();
-
-    lastMoveX.current = e.clientX;
-    lastMoveT.current = performance.now();
-    velocitySlotsPerSec.current = 0;
-
+    startX.current   = e.clientX;
+    startPos.current = positionMV.get();
+    lastX.current    = e.clientX;
+    lastT.current    = performance.now();
+    velocity.current = 0;
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
-    if (!isPointerDown.current) return;
-
-    const now = performance.now();
-    const dx = e.clientX - pointerStartX.current;
+    if (!isDown.current) return;
+    const now     = performance.now();
+    const dx      = e.clientX - startX.current;
     if (Math.abs(dx) > 6) hasDragged.current = true;
 
-    // Only runs during pointer interaction in the browser
-    const width = document.documentElement.clientWidth || 1;
-    const slotPx = (SLOT_STEP_VW / 100) * width;
+    const slotVw  = isMobile ? MOB_SLOT : DESK_SLOT;
+    const slotPx  = (slotVw / 100) * (document.documentElement.clientWidth || 1);
+    positionMV.set(startPos.current - dx / slotPx);
 
-    positionMV.set(pointerStartPos.current - dx / slotPx);
-
-    // velocity in slots/sec
-    const dt = Math.max(1, now - lastMoveT.current);
-    const ddx = e.clientX - lastMoveX.current;
-    velocitySlotsPerSec.current = -(ddx / slotPx) * (1000 / dt);
-
-    lastMoveX.current = e.clientX;
-    lastMoveT.current = now;
+    const dt      = Math.max(1, now - lastT.current);
+    velocity.current = -((e.clientX - lastX.current) / slotPx) * (1000 / dt);
+    lastX.current = e.clientX;
+    lastT.current = now;
   };
 
   const onPointerUp = () => {
-    if (!isPointerDown.current) return;
-    isPointerDown.current = false;
-    snapTo(positionMV.get(), velocitySlotsPerSec.current);
+    if (!isDown.current) return;
+    isDown.current = false;
+    snapTo(positionMV.get(), velocity.current);
+    pauseAndResume();
   };
 
   const indices = useMemo(() => Array.from({ length: n }, (_, i) => i), [n]);
+  const xAnchors = isMobile ? MOB_X_VW : DESK_X_VW;
+
+  // ─── Card ────────────────────────────────────────────────────────────────
 
   function Card({ i }: { i: number }) {
     const distMV = useTransform(positionSpring, (pos) => wrappedDist(i, pos, n));
 
-    // ✅ SSR-safe: output CSS vw string, no window access
-    const xMV = useTransform(distMV, (d) => `${interpXvw(d)}vw`);
+    const xMV    = useTransform(distMV, (d) => `${interpX(d, xAnchors)}vw`);
+    const scaleMV= useTransform(distMV, (d) => interpScale(d, isMobile));
+    const shadeMV= useTransform(distMV, (d) => shade(d));
 
-    const scaleMV = useTransform(distMV, (d) => interpScale(d));
-
-    // Visibility opacity (not de-emphasis): show only the 5 nearest cards
     const visOpacityMV = useTransform(distMV, (d) => {
       const a = Math.abs(d);
-      if (a <= SHOW) return 1;
+      if (a <= SHOW)     return 1;
       if (a >= FADE_END) return 0;
-      const t = (a - SHOW) / (FADE_END - SHOW);
-      return 1 - t;
+      return 1 - (a - SHOW) / (FADE_END - SHOW);
     });
 
-    // Dark overlay for non-center (cards remain opaque)
-    const shadeMV = useTransform(distMV, (d) => {
-      const a = Math.abs(d);
-      if (a < 0.15) return 0;
-      if (a > 1.8) return 0.45;
-      return 0.18 + (a - 0.15) * 0.18;
-    });
-
-    // Pointer events off when hidden
     const peMV = useTransform(distMV, (d) => (Math.abs(d) <= FADE_END ? 'auto' : 'none'));
 
-    const [z, setZ] = useState<number>(0);
+    const [z, setZ] = useState(0);
     useEffect(() => {
       return (distMV as MotionValue<number>).on('change', (d) => {
         if (Math.abs(d) > 3.2) return;
@@ -226,25 +224,27 @@ export default function ImageSlider({ images }: ImageSliderProps) {
 
     const img = images[i];
 
+    const cardW = isMobile ? '90vw' : 'clamp(260px, 50vw, 480px)';
+    const cardH = isMobile ? 'clamp(380px, 65vh, 620px)' : 'clamp(300px, 58vh, 560px)';
+
     return (
       <motion.div
         className="absolute"
-        style={{
-          x: xMV,
-          scale: scaleMV,
-          opacity: visOpacityMV,
-          zIndex: z,
-          pointerEvents: peMV as any,
-        }}
+        style={{ x: xMV, scale: scaleMV, opacity: visOpacityMV, zIndex: z, pointerEvents: peMV as any }}
         onPointerUp={(e) => {
           if (hasDragged.current) return;
+          pauseAndResume();
           goToIndex(i, 0);
           e.stopPropagation();
         }}
       >
         <div
-          style={{ width: BASE_SIZE.w, height: BASE_SIZE.h }}
-          className={`relative overflow-hidden shadow-lg md:shadow-2xl ${BASE_ROUNDED}`}
+          className="relative overflow-hidden"
+          style={{
+            width: cardW,
+            height: cardH,
+            boxShadow: '0 25px 60px rgba(0,0,0,0.6)',
+          }}
         >
           {img?.src ? (
             <Image
@@ -253,32 +253,29 @@ export default function ImageSlider({ images }: ImageSliderProps) {
               fill
               className="object-cover"
               draggable={false}
-              priority={false}
+              sizes="(max-width: 767px) 90vw, 50vw"
             />
           ) : (
-            <div className="w-full h-full bg-gray-800 flex items-center justify-center text-white/40 text-xs p-2 text-center">
+            <div className="w-full h-full bg-gray-800 flex items-center justify-center text-white/30 text-sm">
               {img?.alt}
             </div>
           )}
-
-          {/* de-emphasis without transparency */}
+          {/* shade overlay */}
           <motion.div
-            className="absolute inset-0 pointer-events-none"
-            style={{ backgroundColor: 'black', opacity: shadeMV }}
+            className="absolute inset-0 pointer-events-none bg-black"
+            style={{ opacity: shadeMV }}
           />
         </div>
       </motion.div>
     );
   }
 
-  return (
-    <div className="relative w-full h-[calc(100dvh-4rem)] md:h-[calc(100dvh-5rem)] bg-black overflow-hidden select-none flex flex-col">
-      {/* Heading */}
-      <div className="relative z-20 pt-6 md:pt-10 pb-2 md:pb-4 flex flex-col items-center px-4">
-      
-      </div>
+  // ─── render ──────────────────────────────────────────────────────────────
 
-      {/* Track */}
+  return (
+    <div className="relative w-full h-full bg-black overflow-hidden select-none flex flex-col">
+
+      {/* track */}
       <div
         className="relative flex-1 flex items-center justify-center cursor-grab active:cursor-grabbing touch-none"
         onPointerDown={onPointerDown}
@@ -289,21 +286,27 @@ export default function ImageSlider({ images }: ImageSliderProps) {
         {indices.map((i) => (
           <Card key={images[i]?.id ?? i} i={i} />
         ))}
+
       </div>
 
-      {/* Hint + dots */}
-      <div className="relative z-20 flex flex-col items-center gap-2 md:gap-3 pb-4 md:pb-7 pt-1 md:pt-2 px-4">
-        <p className="text-white/25 text-[8px] md:text-[10px] tracking-[0.35em] uppercase">← vuci →</p>
+      {/* dots + swipe hint */}
+      <div className="relative z-20 flex flex-col items-center gap-2.5 pb-5 md:pb-7 pt-2">
+        {/* swipe hint — mobile only, fades after first interaction */}
+        <p className="md:hidden text-white/20 text-[9px] tracking-[0.3em] uppercase">
+          ← povuci →
+        </p>
 
-        <div className="flex gap-1.5 md:gap-2 flex-wrap justify-center">
+        <div className="flex gap-2 items-center">
           {images.map((_, i) => (
             <button
               key={i}
-              onClick={() => goToIndex(i, 0)}
-              className={`h-1 md:h-1.5 rounded-full transition-all duration-300 ${
-                i === dotIndex ? 'bg-white w-6 md:w-8' : 'bg-white/35 hover:bg-white/60 w-1 md:w-1.5'
+              onClick={() => { pauseAndResume(); goToIndex(i, 0); }}
+              className={`h-[3px] rounded-full transition-all duration-400 ${
+                i === dotIndex
+                  ? 'w-7 bg-[#BE9E5C]'
+                  : 'w-[6px] bg-white/25 hover:bg-white/45'
               }`}
-              aria-label={`Go to image ${i + 1}`}
+              aria-label={`Slika ${i + 1}`}
             />
           ))}
         </div>
