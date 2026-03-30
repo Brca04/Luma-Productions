@@ -13,9 +13,5 @@ Luma Productions provides professional photography and video production services
 ## Contact
 - **Email:** info@luma-productions.net
 - **Phone:** +385 97 6172 191
-## Social Media
-- [Instagram](https://www.instagram.com/lumaproductions__/)
-- [Facebook](https://facebook.com/lumaproductions)
-- [TikTok](https://tiktok.com/@lumaproductions)
 ## License
 © 2026 Luma Productions. All rights reserved.
