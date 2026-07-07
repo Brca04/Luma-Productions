@@ -19,12 +19,6 @@ export default function Home() {
   const services = useMemo(
     () => [
       {
-        title: "Reklamna produkcija",
-        description: "Profesionalna izrada video i foto materijala za vašu tvrtku",
-        href: "/reklame",
-        image: "",
-      },
-      {
         title: "Maturalne Večeri",
         description: "Uhvatite najljepše trenutke vaše maturalne večeri",
         href: "/maturalne-veceri",
@@ -35,6 +29,12 @@ export default function Home() {
         description: "Vječno sačuvajte najvažnji dan vašeg života",
         href: "/vjencanja",
         image: "/vjencanje.webp",
+      },
+      {
+        title: "Sveto Krštenje",
+        description: "Diskretna fotografija obreda i obiteljskog slavlja",
+        href: "/sveto-krstenje",
+        image: "/krstenje.webp",
       },
       {
         title: "Najam Photobooth-a",
@@ -338,7 +338,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Image Preview Modal (mobile-friendly) */}
       <ImagePreviewModal src={previewImage} onClose={() => setPreviewImage(null)} />
     </div>
   );

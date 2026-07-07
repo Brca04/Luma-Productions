@@ -2,12 +2,12 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import PortfolioGallery from "@/components/PortfolioGallery";
-import { getBrandBySlug, brandItems } from "../data";
+import { getKrstenjeBySlug, krstenjeItems } from "../data";
 
 type Params = { slug: string };
 
 export function generateStaticParams(): Params[] {
-  return brandItems.map((b) => ({ slug: b.slug }));
+  return krstenjeItems.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
@@ -16,23 +16,23 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const item = getBrandBySlug(slug);
-  if (!item) return { title: "Reklamna produkcija" };
+  const item = getKrstenjeBySlug(slug);
+  if (!item) return { title: "Sveto krštenje" };
   return {
-    title: `${item.name} — ${item.category}`,
+    title: `${item.name} — Sveto krštenje`,
     description:
       item.description ??
-      `Reklamna produkcija za ${item.name} — ${item.category}.`,
+      `Fotografija svetog krštenja — ${item.name} (${item.category}).`,
   };
 }
 
-export default async function BrandGalleryPage({
+export default async function KrstenjeGalleryPage({
   params,
 }: {
   params: Promise<Params>;
 }) {
   const { slug } = await params;
-  const item = getBrandBySlug(slug);
+  const item = getKrstenjeBySlug(slug);
   if (!item) notFound();
 
   return (
@@ -41,8 +41,8 @@ export default async function BrandGalleryPage({
       category={item.category}
       description={item.description}
       images={item.gallery}
-      backHref="/reklame"
-      backLabel="Sve reklame"
+      backHref="/sveto-krstenje"
+      backLabel="Sva krštenja"
     />
   );
 }

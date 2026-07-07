@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import ReserveButton from "@/components/ReserveButton";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | Luma Production",
   },
   description:
-    "Profesionalna fotografija za vjenčanja, maturalne večeri, krštenja i reklame. Vrhunska kvaliteta i pristupačne cijene.",
+    "Profesionalna fotografija za vjenčanja, maturalne večeri i krštenja. Vrhunska kvaliteta i pristupačne cijene.",
   icons: {
     icon: "/luma-productions-logo-225x300.webp",
     apple: "/luma-productions-logo-225x300.webp",
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
     "vjenčanja",
     "maturalne večeri",
     "krštenja",
-    "reklame",
+    "sveto krštenje",
     "foto studio",
     "profesionalni fotograf",
   ],
@@ -49,13 +50,13 @@ export const metadata: Metadata = {
     siteName: "Luma Production",
     title: "Luma Production - Profesionalna Fotografija",
     description:
-      "Profesionalna fotografija za vjenčanja, maturalne večeri, krštenja i reklame.",
+      "Profesionalna fotografija za vjenčanja, maturalne večeri i krštenja.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Luma Production - Profesionalna Fotografija",
     description:
-      "Profesionalna fotografija za vjenčanja, maturalne večeri, krštenja i reklame.",
+      "Profesionalna fotografija za vjenčanja, maturalne večeri i krštenja.",
   },
   robots: {
     index: true,
@@ -81,6 +82,8 @@ export default function RootLayout({
         <ScrollToTop />
 
         <Navbar />
+
+        <ReserveButton />
 
         <main className="">
           {children}

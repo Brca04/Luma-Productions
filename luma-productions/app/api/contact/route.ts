@@ -33,7 +33,7 @@ const SERVICE_LABELS: Record<string, string> = {
   vjencanje: "Vjenčanje",
   maturalna: "Maturalna večer",
   krstenje: "Krštenje / Photobooth",
-  reklama: "Reklama / Komercijalno",
+  "sveto-krstenje": "Sveto krštenje",
   ostalo: "Ostalo",
 };
 
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Neispravan zahtjev." }, { status: 400 });
   }
 
-  const { name, lastname, email, phone, service, message } =
+  const { name, lastname, email, phone, service, paket, dodatci, message } =
     (body ?? {}) as Record<string, string | undefined>;
 
   if (!name || !lastname || !email || !service || !message) {
@@ -91,6 +91,8 @@ export async function POST(req: NextRequest) {
         `Email: ${email}`,
         `Telefon: ${phone || "—"}`,
         `Usluga: ${serviceLabel}`,
+        `Paket: ${paket || "—"}`,
+        `Dodatci: ${dodatci || "—"}`,
         "",
         message,
       ].join("\n"),
@@ -99,6 +101,8 @@ export async function POST(req: NextRequest) {
         <p><strong>Email:</strong> ${escapeHtml(email)}</p>
         <p><strong>Telefon:</strong> ${escapeHtml(phone || "—")}</p>
         <p><strong>Usluga:</strong> ${escapeHtml(serviceLabel)}</p>
+        <p><strong>Paket:</strong> ${escapeHtml(paket || "—")}</p>
+        <p><strong>Dodatci:</strong> ${escapeHtml(dodatci || "—")}</p>
         <hr/>
         <p>${escapeHtml(message).replace(/\n/g, "<br/>")}</p>
       `,

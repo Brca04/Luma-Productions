@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 
 const INFO = [
@@ -26,6 +26,20 @@ const INFO = [
   },
 ];
 
+// Glavni paketi ovisno o odabranoj usluzi.
+const PACKAGES: Record<string, string[]> = {
+  vjencanje: ["Luma #1", "Luma #2", "Luma #3", "Luma #4"],
+  maturalna: ["Foto #1", "Foto #2", "Mix #1", "Mix #2"],
+  krstenje: ["Basic", "Standard", "Premium"],
+  "sveto-krstenje": ["Osnovni", "Standard", "Premium"],
+};
+
+// Dodatci (moguć višestruki odabir) ovisno o usluzi.
+const ADDONS: Record<string, string[]> = {
+  vjencanje: ["Photobooth", "Zahvalnice", "Dron"],
+  maturalna: ["Photobooth", "Photobook"],
+};
+
 const fadeInUp = {
   hidden: { opacity: 0, y: 60 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const } },
@@ -39,6 +53,16 @@ const stagger = {
 export default function KontaktClient() {
   const shouldReduceMotion = useReducedMotion();
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [service, setService] = useState("");
+  const [paket, setPaket] = useState("");
+  const [addons, setAddons] = useState<string[]>([]);
+
+  const packageOptions = PACKAGES[service] ?? [];
+  const addonOptions = ADDONS[service] ?? [];
+
+  function toggleAddon(a: string) {
+    setAddons((prev) => (prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a]));
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -50,7 +74,9 @@ export default function KontaktClient() {
       lastname: (form.elements.namedItem("lastname") as HTMLInputElement).value,
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
-      service: (form.elements.namedItem("service") as HTMLSelectElement).value,
+      service,
+      paket,
+      dodatci: addons.join(", "),
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
     };
 
@@ -64,6 +90,9 @@ export default function KontaktClient() {
       if (!res.ok) throw new Error();
       setStatus("success");
       form.reset();
+      setService("");
+      setPaket("");
+      setAddons([]);
     } catch {
       setStatus("error");
     }
@@ -144,24 +173,108 @@ export default function KontaktClient() {
                     <FormField id="phone" label="Telefon" type="tel" placeholder="+385 XX XXX XXXX" />
                   </div>
 
-                  <div>
-                    <label htmlFor="service" className="block text-xs font-semibold tracking-widest uppercase text-gray-500 mb-2">
-                      Vrsta usluge *
-                    </label>
-                    <select
-                      id="service"
-                      name="service"
-                      required
-                      className="w-full px-4 py-3 border-2 border-gray-200 focus:border-black focus:outline-none transition-all text-gray-700 text-sm rounded-lg"
-                    >
-                      <option value="">Odaberite...</option>
-                      <option value="vjencanje">Vjenčanje</option>
-                      <option value="maturalna">Maturalna večer</option>
-                      <option value="krstenje">Krštenje / Photobooth</option>
-                      <option value="reklama">Reklama / Komercijalno</option>
-                      <option value="ostalo">Ostalo</option>
-                    </select>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <label htmlFor="service" className="block text-xs font-semibold tracking-widest uppercase text-gray-500 mb-2">
+                        Vrsta usluge *
+                      </label>
+                      <select
+                        id="service"
+                        name="service"
+                        required
+                        value={service}
+                        onChange={(e) => {
+                          setService(e.target.value);
+                          setPaket("");
+                          setAddons([]);
+                        }}
+                        className="w-full px-4 py-3 border-2 border-gray-200 focus:border-black focus:outline-none transition-all text-gray-700 text-sm rounded-lg"
+                      >
+                        <option value="">Odaberite...</option>
+                        <option value="vjencanje">Vjenčanje</option>
+                        <option value="maturalna">Maturalna večer</option>
+                        <option value="krstenje">Krštenje / Photobooth</option>
+                        <option value="sveto-krstenje">Sveto krštenje</option>
+                        <option value="ostalo">Ostalo</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label htmlFor="paket" className="block text-xs font-semibold tracking-widest uppercase text-gray-500 mb-2">
+                        Paket
+                      </label>
+                      <select
+                        id="paket"
+                        name="paket"
+                        value={paket}
+                        disabled={packageOptions.length === 0}
+                        onChange={(e) => setPaket(e.target.value)}
+                        className="w-full px-4 py-3 border-2 border-gray-200 focus:border-black focus:outline-none transition-all text-gray-700 text-sm rounded-lg disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed"
+                      >
+                        <option value="">
+                          {packageOptions.length === 0 ? "Prvo odaberite uslugu" : "Odaberite paket..."}
+                        </option>
+                        {packageOptions.map((p) => (
+                          <option key={p} value={p}>
+                            {p}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
+
+                  <AnimatePresence initial={false}>
+                    {addonOptions.length > 0 && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                        animate={{ height: "auto", opacity: 1, marginTop: "1.5rem" }}
+                        exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                        transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+                        style={{ overflow: "hidden" }}
+                      >
+                        <label className="block text-xs font-semibold tracking-widest uppercase text-gray-500 mb-2">
+                          Dodatci
+                        </label>
+                        <motion.div
+                          key={service}
+                          initial={{ opacity: 0, y: 4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.28, ease: "easeOut" }}
+                          className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+                        >
+                          {addonOptions.map((a) => {
+                            const checked = addons.includes(a);
+                            return (
+                              <button
+                                type="button"
+                                key={a}
+                                onClick={() => toggleAddon(a)}
+                                aria-pressed={checked}
+                                className={`flex items-center gap-3 px-4 py-3 border-2 rounded-lg text-sm text-left transition-colors duration-200 ${
+                                  checked
+                                    ? "border-[#BE9E5C] bg-[#BE9E5C]/[0.06] text-gray-900 font-medium"
+                                    : "border-gray-200 text-gray-600 hover:border-gray-300"
+                                }`}
+                              >
+                                <span
+                                  className={`flex items-center justify-center w-5 h-5 rounded border-2 shrink-0 transition-colors duration-200 ${
+                                    checked ? "border-[#BE9E5C] bg-[#BE9E5C]" : "border-gray-300"
+                                  }`}
+                                >
+                                  {checked && (
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                      <path d="M2.5 6.2L4.8 8.5L9.5 3.5" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                  )}
+                                </span>
+                                {a}
+                              </button>
+                            );
+                          })}
+                        </motion.div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
                   <div>
                     <label htmlFor="message" className="block text-xs font-semibold tracking-widest uppercase text-gray-500 mb-2">

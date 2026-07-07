@@ -11,9 +11,9 @@ export default function Navbar() {
 
   const navItems = [
     { name: 'POČETNA', href: '/' },
-    { name: 'REKLAME', href: '/reklame' },
     { name: 'MATURALNE VEČERI', href: '/maturalne-veceri' },
     { name: 'VJENČANJA', href: '/vjencanja' },
+    { name: 'SVETO KRŠTENJE', href: '/sveto-krstenje' },
     { name: 'PHOTOBOOTH', href: '/krstenja' },
     { name: 'KONTAKT', href: '/kontakt' },
   ];
@@ -21,12 +21,12 @@ export default function Navbar() {
   const isActive = (href: string) => pathname === href;
 
   return (
-    <nav className="absolute w-full top-0 z-50 bg-transparent">
+    <nav className="absolute w-full top-0 z-50 bg-transparent pointer-events-none">
       <div className="px-6 md:px-8 lg:px-12">
         <div className="flex justify-between items-center h-20 md:h-24 relative">
 
           {/* Hamburger — 44×44 touch target */}
-          <div className={`z-50 transition-opacity duration-300 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+          <div className={`z-50 transition-opacity duration-300 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`}>
             <button
               onClick={() => setIsOpen(true)}
               aria-label="Open menu"
@@ -41,7 +41,7 @@ export default function Navbar() {
           </div>
 
           {/* Logo centered */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
             <Link href="/" className="flex items-center">
               <Image
                 src="/luma-productions-logo-225x300.webp"
@@ -126,7 +126,7 @@ export default function Navbar() {
       {/* DESKTOP: slide-in side panel */}
       <div
         className={`hidden lg:flex fixed inset-y-0 left-0 w-[340px] z-40 flex-col transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+          isOpen ? 'translate-x-0 pointer-events-auto' : '-translate-x-full pointer-events-none'
         }`}
         style={{ background: '#ffffff', borderRight: '1px solid rgba(190,157,90,0.25)' }}
       >

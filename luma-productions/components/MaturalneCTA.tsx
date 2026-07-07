@@ -3,61 +3,154 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
+const GOLD = "#BE9E5C";
+
 export default function MaturalneCTA() {
   return (
     <motion.section
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="bg-white text-center"
-      style={{ padding: 'clamp(4rem, 10vw, 6rem) 1.5rem' }}
+      style={{
+        background: "#ffffff",
+        textAlign: "center",
+        padding: "clamp(5rem, 12vw, 8rem) 1.5rem",
+      }}
     >
-      <div className="max-w-2xl mx-auto px-2">
-        <h3 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900 leading-[1.1] mb-4">
-          Rezervirajte<br />
-          <span className="text-[#BE9E5C]">svoj termin</span>
-        </h3>
-        <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
+      <div style={{ maxWidth: "44rem", margin: "0 auto" }}>
+        {/* Eyebrow */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="w-12 h-px mx-auto mb-6 bg-[#BE9E5C]"
-        />
-        <p className="text-lg text-gray-600 leading-[1.8] font-light mb-10">
-          Kontaktirajte nas i osigurajte nezaboravnu dokumentaciju vaše maturalne večeri.
-        </p>
-        <Link
-          href="/kontakt"
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            minHeight: "52px",
-            padding: "0 2.5rem",
-            border: "1.5px solid #111",
-            borderRadius: "9999px",
-            color: "#111",
-            fontSize: "0.75rem",
+            fontSize: "0.78rem",
             fontWeight: 600,
-            letterSpacing: "0.2em",
+            letterSpacing: "0.28em",
             textTransform: "uppercase",
-            textDecoration: "none",
-            transition: "background 0.25s, color 0.25s",
-            WebkitTapHighlightColor: "transparent",
-          }}
-          onMouseEnter={e => {
-            (e.currentTarget as HTMLAnchorElement).style.background = "#111";
-            (e.currentTarget as HTMLAnchorElement).style.color = "#fff";
-          }}
-          onMouseLeave={e => {
-            (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
-            (e.currentTarget as HTMLAnchorElement).style.color = "#111";
+            color: GOLD,
+            margin: "0 0 1.75rem",
           }}
         >
-          Kontaktirajte nas
-        </Link>
+          Vaša večer, naš posao
+        </motion.p>
+
+        {/* Heading */}
+        <motion.h2
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
+          style={{
+            fontFamily: "Georgia, 'Times New Roman', serif",
+            fontSize: "clamp(2.75rem, 7vw, 4.75rem)",
+            fontWeight: 500,
+            lineHeight: 1.08,
+            letterSpacing: "-0.01em",
+            color: "#111",
+            margin: 0,
+          }}
+        >
+          Rezervirajte vaš datum
+        </motion.h2>
+
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+          style={{
+            fontSize: "clamp(1rem, 2.2vw, 1.2rem)",
+            lineHeight: 1.7,
+            fontWeight: 300,
+            color: "rgba(0,0,0,0.55)",
+            margin: "1.75rem auto 0",
+            maxWidth: "34rem",
+          }}
+        >
+          Slobodnih termina je sve manje — osigurajte svoje mjesto na vrijeme.
+        </motion.p>
+
+        {/* Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "1rem",
+            marginTop: "3rem",
+          }}
+        >
+          <Link
+            href="/kontakt"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "min(100%, 20rem)",
+              minHeight: "60px",
+              background: GOLD,
+              color: "#111",
+              borderRadius: "10px",
+              fontSize: "0.82rem",
+              fontWeight: 700,
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              transition: "background 0.25s, transform 0.2s",
+              WebkitTapHighlightColor: "transparent",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.background = "#a9884a";
+              (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.background = GOLD;
+              (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
+            }}
+          >
+            Pošalji upit
+          </Link>
+
+          <a
+            href="tel:+385976172191"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "min(100%, 20rem)",
+              minHeight: "60px",
+              background: "transparent",
+              color: "#111",
+              border: "1px solid rgba(0,0,0,0.2)",
+              borderRadius: "10px",
+              fontSize: "0.82rem",
+              fontWeight: 600,
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              transition: "background 0.25s, border-color 0.25s",
+              WebkitTapHighlightColor: "transparent",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.background = "rgba(0,0,0,0.04)";
+              (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(0,0,0,0.45)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
+              (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(0,0,0,0.2)";
+            }}
+          >
+            Nazovite nas
+          </a>
+        </motion.div>
       </div>
     </motion.section>
   );

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import MaturantConfigurator from '@/components/MaturantConfigurator';
+import VjencanjaPricing from '@/components/VjencanjaPricing';
 import VjencanjaHero from '@/components/VjencanjaHero';
 import WeddingGalleryCarousel from '@/components/WeddingGalleryCarousel';
 import { weddingItems } from './data';
@@ -67,7 +67,7 @@ export default function Vjencanja() {
 
       <WeddingGalleryCarousel cards={weddingCards} />
 
-      <MaturantConfigurator />
+      <VjencanjaPricing />
 
       <MaturalneCTA />
 
