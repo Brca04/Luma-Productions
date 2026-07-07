@@ -11,6 +11,7 @@ const heroImages = [
 export default function KrstenjaHero() {
   return (
     <SectionHero
+      eyebrow="Foto kutak · Photobooth"
       titleTop="Najam"
       titleBottom="Photobooth-a"
       description="Photobooth koji pretvara svaki event u interaktivno iskustvo. Neograničeni ispisi, rekviziti i digitalna galerija — gosti odlaze s uspomenom u ruci."

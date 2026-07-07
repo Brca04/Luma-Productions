@@ -19,11 +19,6 @@ const INFO = [
     value: "Zagreb, Hrvatska",
     href: null,
   },
-  {
-    label: "Radno vrijeme",
-    value: "Pon–Pet: 9:00–18:00\nSub: Po dogovoru",
-    href: null,
-  },
 ];
 
 // Glavni paketi ovisno o odabranoj usluzi.
@@ -38,6 +33,14 @@ const PACKAGES: Record<string, string[]> = {
 const ADDONS: Record<string, string[]> = {
   vjencanje: ["Photobooth", "Zahvalnice", "Dron"],
   maturalna: ["Photobooth", "Photobook"],
+};
+
+const SERVICE_LABELS: Record<string, string> = {
+  vjencanje: "Vjenčanje",
+  maturalna: "Maturalna večer",
+  krstenje: "Krštenje / Photobooth",
+  "sveto-krstenje": "Sveto krštenje",
+  ostalo: "Ostalo",
 };
 
 const fadeInUp = {
@@ -69,25 +72,35 @@ export default function KontaktClient() {
     setStatus("sending");
 
     const form = e.currentTarget;
-    const data = {
-      name: (form.elements.namedItem("name") as HTMLInputElement).value,
-      lastname: (form.elements.namedItem("lastname") as HTMLInputElement).value,
-      email: (form.elements.namedItem("email") as HTMLInputElement).value,
-      phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
-      service,
-      paket,
-      dodatci: addons.join(", "),
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    const name = (form.elements.namedItem("name") as HTMLInputElement).value;
+    const lastname = (form.elements.namedItem("lastname") as HTMLInputElement).value;
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
+    const phone = (form.elements.namedItem("phone") as HTMLInputElement).value;
+    const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value;
+    const serviceLabel = SERVICE_LABELS[service] ?? service;
+
+    const payload = {
+      name: `${name} ${lastname}`,
+      email,
+      phone: phone || "—",
+      usluga: serviceLabel || "—",
+      paket: paket || "—",
+      dodatci: addons.length ? addons.join(", ") : "—",
+      poruka: message,
+      _subject: `Nova upita – ${serviceLabel || "Kontakt"}`,
+      _template: "table",
+      _captcha: "false",
     };
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("https://formsubmit.co/ajax/info@luma-productions.net", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload),
       });
-
-      if (!res.ok) throw new Error();
+      const json = await res.json().catch(() => null);
+      const ok = res.ok && json && (json.success === "true" || json.success === true);
+      if (!ok) throw new Error();
       setStatus("success");
       form.reset();
       setService("");

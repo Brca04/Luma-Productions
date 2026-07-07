@@ -10,6 +10,7 @@ const heroImages = [
 export default function SvetoKrstenjeHero() {
   return (
     <SectionHero
+      eyebrow="Fotografija · Sveto krštenje"
       titleTop="Sveto"
       titleBottom="Krštenje"
       description="Nježna i diskretna fotografija svetog krštenja — od dolaska u crkvu i obreda do slavlja s obitelji. Čuvamo svaki sveti trenutak vašeg djeteta."

@@ -11,6 +11,7 @@ const heroImages = [
 export default function VjencanjaHero() {
   return (
     <SectionHero
+      eyebrow="Fotografija & Video · Vjenčanja"
       titleTop="Vjenčanja"
       titleBottom=""
       description="Sačuvajte najvažniji dan života kroz kadar koji traje zauvijek. Elegantna, emotivna i autentična fotografija vašeg velikog dana."
