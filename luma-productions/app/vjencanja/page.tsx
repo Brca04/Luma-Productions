@@ -7,9 +7,11 @@ export const metadata: Metadata = {
   title: 'Fotografija Vjenčanja',
   description: 'Profesionalna fotografija vjenčanja. Sačuvajte najljepše trenutke vašeg velikog dana. Iskustvo, kreativnost i strast u svakom kadru.',
   keywords: ['vjenčanje', 'fotografija vjenčanja', 'svadbena fotografija', 'fotograf za vjenčanje', 'foto studio'],
+  alternates: { canonical: '/vjencanja' },
   openGraph: {
     title: 'Fotografija Vjenčanja | Foto Studio',
     description: 'Profesionalna fotografija vjenčanja. Sačuvajte najljepše trenutke vašeg velikog dana.',
+    url: '/vjencanja',
   },
 };
 

@@ -9,7 +9,9 @@ export const metadata: Metadata = {
   description:
     'Profesionalna fotografija svetog krštenja — obred u crkvi, obiteljski portreti i slavlje. Diskretan pristup i vrhunska kvaliteta.',
   keywords: ['krštenje', 'sveto krštenje', 'fotografija krštenja', 'obiteljska fotografija', 'foto studio'],
+  alternates: { canonical: '/sveto-krstenje' },
   openGraph: {
+    url: '/sveto-krstenje',
     title: 'Fotografija Svetog Krštenja | Luma Productions',
     description:
       'Profesionalna fotografija svetog krštenja — obred u crkvi, obiteljski portreti i slavlje.',

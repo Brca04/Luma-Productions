@@ -96,7 +96,7 @@ export default function PortfolioGallery({
               {img.width && img.height ? (
                 <Image
                   src={img.src}
-                  alt={img.caption ?? `${title} — ${i + 1}`}
+                  alt={img.caption ?? `${title} — ${category} — fotografija ${i + 1}`}
                   width={img.width}
                   height={img.height}
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
@@ -107,7 +107,7 @@ export default function PortfolioGallery({
                 <div className="relative aspect-[3/4]">
                   <Image
                     src={img.src}
-                    alt={img.caption ?? `${title} — ${i + 1}`}
+                    alt={img.caption ?? `${title} — ${category} — fotografija ${i + 1}`}
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     quality={80}

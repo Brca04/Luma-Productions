@@ -166,12 +166,24 @@ export default function KontaktClient() {
             className="lg:col-span-2"
             variants={shouldReduceMotion ? noMotion : fadeInUp}
           >
-            <div className="bg-white border-2 border-gray-100 p-8 rounded-2xl">
-              <h3 className="text-2xl font-bold mb-2">Kontaktirajte nas</h3>
-              <p className="text-gray-500 text-sm mb-8">Javit ćemo vam se u najkraćem mogućem roku.</p>
+            <motion.div
+              layout={!shouldReduceMotion}
+              transition={{ layout: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } }}
+              className="bg-white border-2 border-gray-100 p-8 rounded-2xl"
+            >
+              <motion.h3 layout="position" className="text-2xl font-bold mb-2">Kontaktirajte nas</motion.h3>
+              <motion.p layout="position" className="text-gray-500 text-sm mb-8">Javit ćemo vam se u najkraćem mogućem roku.</motion.p>
 
+              <AnimatePresence mode="wait" initial={false}>
               {status === "success" ? (
-                <div className="py-12 text-center">
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.35, ease: "easeOut" }}
+                  className="py-12 text-center"
+                >
                   <p className="text-lg font-semibold text-gray-900 mb-2">Poruka je poslana!</p>
                   <p className="text-sm text-gray-500">Javit ćemo vam se uskoro.</p>
                   <button
@@ -180,9 +192,17 @@ export default function KontaktClient() {
                   >
                     Pošalji još jednu poruku
                   </button>
-                </div>
+                </motion.div>
               ) : (
-                <form className="space-y-6" onSubmit={handleSubmit}>
+                <motion.form
+                  key="form"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.25, ease: "easeOut" }}
+                  className="space-y-6"
+                  onSubmit={handleSubmit}
+                >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <FormField id="name" label="Ime *" type="text" placeholder="Vaše ime" />
                     <FormField id="lastname" label="Prezime *" type="text" placeholder="Vaše prezime" />
@@ -323,9 +343,10 @@ export default function KontaktClient() {
                       <span className="transform group-hover:translate-x-1 transition-transform">→</span>
                     )}
                   </button>
-                </form>
+                </motion.form>
               )}
-            </div>
+              </AnimatePresence>
+            </motion.div>
           </motion.div>
 
         </motion.div>

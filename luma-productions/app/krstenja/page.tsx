@@ -8,7 +8,9 @@ export const metadata: Metadata = {
   description:
     'Najam photobooth-a za vjenčanja, korporativne evente, maturalne večeri i privatna slavlja. Neograničeni ispisi, rekviziti i digitalna galerija.',
   keywords: ['photobooth', 'najam photobooth', 'foto kutak', 'event', 'vjenčanje', 'korporativni event'],
+  alternates: { canonical: '/krstenja' },
   openGraph: {
+    url: '/krstenja',
     title: 'Najam Photobooth-a | Luma Productions',
     description:
       'Profesionalni photobooth za sve vrste evenata — neograničeni ispisi i digitalna galerija.',

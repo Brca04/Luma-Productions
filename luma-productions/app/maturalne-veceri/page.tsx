@@ -12,9 +12,11 @@ export const metadata: Metadata = {
   description:
     'Profesionalna fotografija maturalne večeri. Uhvatite najljepše trenutke slavlja. Pristupačni paketi i vrhunska kvaliteta.',
   keywords: ['maturalne večeri', 'fotografija', 'matura', 'maturalna zabava', 'foto studio'],
+  alternates: { canonical: '/maturalne-veceri' },
   openGraph: {
     title: 'Fotografija Maturalne Večeri | Foto Studio',
     description: 'Profesionalna fotografija maturalne večeri. Uhvatite najljepše trenutke slavlja.',
+    url: '/maturalne-veceri',
   },
 };
 

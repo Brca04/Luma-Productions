@@ -11,10 +11,13 @@ export const viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
+  themeColor: '#ffffff',
 };
 
+const SITE_URL = "https://www.luma-productions.net";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.vasadomena.hr"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default:
       "Luma Production - Profesionalna Fotografija | Vjenčanja, Maturalne Večeri, Krštenja",
@@ -22,6 +25,9 @@ export const metadata: Metadata = {
   },
   description:
     "Profesionalna fotografija za vjenčanja, maturalne večeri i krštenja. Vrhunska kvaliteta i pristupačne cijene.",
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: "/luma-productions-logo-225x300.webp",
     apple: "/luma-productions-logo-225x300.webp",
@@ -46,17 +52,26 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "hr_HR",
-    url: "https://www.vasadomena.hr",
+    url: SITE_URL,
     siteName: "Luma Production",
     title: "Luma Production - Profesionalna Fotografija",
     description:
       "Profesionalna fotografija za vjenčanja, maturalne večeri i krštenja.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Luma Production - Profesionalna Fotografija",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Luma Production - Profesionalna Fotografija",
     description:
       "Profesionalna fotografija za vjenčanja, maturalne večeri i krštenja.",
+    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,
@@ -76,9 +91,41 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "ProfessionalService"],
+    "@id": `${SITE_URL}/#business`,
+    name: "Luma Production",
+    image: `${SITE_URL}/og-image.jpg`,
+    logo: `${SITE_URL}/luma-productions-logo-225x300.webp`,
+    url: SITE_URL,
+    email: "info@luma-productions.net",
+    description:
+      "Profesionalna fotografija za vjenčanja, maturalne večeri i krštenja.",
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "HR",
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "Hrvatska",
+    },
+    knowsAbout: [
+      "Fotografija vjenčanja",
+      "Fotografija maturalnih večeri",
+      "Fotografija krštenja",
+      "Photobooth najam",
+    ],
+    sameAs: [] as string[],
+  };
+
   return (
     <html lang="hr">
       <body className="antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <ScrollToTop />
 
         <Navbar />

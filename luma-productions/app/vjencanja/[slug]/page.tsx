@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import PortfolioGallery from "@/components/PortfolioGallery";
+import GalleryStructuredData from "@/components/GalleryStructuredData";
 import { getWeddingBySlug, weddingItems } from "../data";
 
 type Params = { slug: string };
@@ -18,11 +19,23 @@ export async function generateMetadata({
   const { slug } = await params;
   const item = getWeddingBySlug(slug);
   if (!item) return { title: "Vjenčanje" };
+  const title = `${item.name} — Vjenčanje`;
+  const desc =
+    item.description ??
+    `Galerija fotografija s vjenčanja ${item.name} (${item.category}).`;
+  const url = `/vjencanja/${slug}`;
   return {
-    title: `${item.name} — Vjenčanje`,
-    description:
-      item.description ??
-      `Galerija fotografija s vjenčanja ${item.name} (${item.category}).`,
+    title,
+    description: desc,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      title,
+      description: desc,
+      images: [{ url: item.coverImage, alt: `${item.name} — vjenčanje` }],
+    },
+    twitter: { card: "summary_large_image", images: [item.coverImage] },
   };
 }
 
@@ -36,6 +49,14 @@ export default async function WeddingGalleryPage({
   if (!item) notFound();
 
   return (
+    <>
+    <GalleryStructuredData
+      sectionLabel="Vjenčanja"
+      sectionPath="/vjencanja"
+      name={item.name}
+      slug={slug}
+      images={item.gallery}
+    />
     <PortfolioGallery
       title={item.name}
       category={item.category}
@@ -44,5 +65,6 @@ export default async function WeddingGalleryPage({
       backHref="/vjencanja"
       backLabel="Sva vjenčanja"
     />
+    </>
   );
 }

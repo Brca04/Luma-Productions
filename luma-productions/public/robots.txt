@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.vasadomena.hr/sitemap.xml
+Sitemap: https://www.luma-productions.net/sitemap.xml

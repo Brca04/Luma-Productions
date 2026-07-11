@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import PortfolioGallery from "@/components/PortfolioGallery";
+import GalleryStructuredData from "@/components/GalleryStructuredData";
 import { getMaturalneBySlug, maturalneItems } from "../data";
 
 type Params = { slug: string };
@@ -18,11 +19,23 @@ export async function generateMetadata({
   const { slug } = await params;
   const item = getMaturalneBySlug(slug);
   if (!item) return { title: "Maturalna večer" };
+  const title = `${item.name} — Maturalna večer`;
+  const desc =
+    item.description ??
+    `Galerija fotografija s maturalne večeri — ${item.name} (${item.category}).`;
+  const url = `/maturalne-veceri/${slug}`;
   return {
-    title: `${item.name} — Maturalna večer`,
-    description:
-      item.description ??
-      `Galerija fotografija s maturalne večeri — ${item.name} (${item.category}).`,
+    title,
+    description: desc,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      title,
+      description: desc,
+      images: [{ url: item.coverImage, alt: `${item.name} — maturalna večer` }],
+    },
+    twitter: { card: "summary_large_image", images: [item.coverImage] },
   };
 }
 
@@ -36,6 +49,14 @@ export default async function MaturalneGalleryPage({
   if (!item) notFound();
 
   return (
+    <>
+    <GalleryStructuredData
+      sectionLabel="Maturalne Večeri"
+      sectionPath="/maturalne-veceri"
+      name={item.name}
+      slug={slug}
+      images={item.gallery}
+    />
     <PortfolioGallery
       title={item.name}
       category={item.category}
@@ -44,5 +65,6 @@ export default async function MaturalneGalleryPage({
       backHref="/maturalne-veceri"
       backLabel="Sve maturalne večeri"
     />
+    </>
   );
 }
