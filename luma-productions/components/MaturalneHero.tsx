@@ -17,11 +17,18 @@ export default function MaturalneHero() {
       `}</style>
 
       {/* Background image */}
-      <img
-        src="/maturalna.webp"
-        alt="Maturalna večer"
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
-      />
+      <picture>
+        {/* Portrait crop for phones */}
+        <source
+          media="(max-width: 767px)"
+          srcSet="/heroMaturalne/mobile/LumaProductions_Photobooth%20-%2056.jpg"
+        />
+        <img
+          src="/heroHompage/desktop/MaturalnaVe%C4%8Der_%20%C5%A0pogi%20-%20317.jpg"
+          alt="Maturalna večer"
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+        />
+      </picture>
 
       {/* Scrim */}
       <div
@@ -62,7 +69,7 @@ export default function MaturalneHero() {
 
       {/* Scroll indicator */}
       <div className="h-scroll">
-        <span className="h-scroll-label">scroll</span>
+        <span className="h-scroll-label">dolje</span>
         <div className="h-scroll-dot" />
       </div>
     </section>

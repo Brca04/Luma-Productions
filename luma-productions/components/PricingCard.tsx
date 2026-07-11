@@ -1,7 +1,6 @@
 'use client';
 
 import { motion, type Variants } from 'framer-motion';
-import Image from 'next/image';
 
 export interface PricingPlan {
   name: string;
@@ -68,20 +67,6 @@ export default function PricingCard({ plan }: PricingCardProps) {
         transition: 'box-shadow 0.2s, border-color 0.2s',
       }}
     >
-      {/* Optional image */}
-      {plan.imageSrc && (
-        <div style={{ position: 'relative', width: '100%', aspectRatio: '3/2' }}>
-          <Image
-            src={plan.imageSrc}
-            alt={plan.imageAlt ?? plan.name}
-            fill
-            style={{ objectFit: 'cover' }}
-            sizes="(min-width: 768px) 33vw, 100vw"
-            priority={!!plan.highlighted}
-          />
-        </div>
-      )}
-
       <div style={{ padding: '30px 30px 28px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
 
         {/* Name row */}

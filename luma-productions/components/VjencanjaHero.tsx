@@ -1,8 +1,10 @@
 import SectionHero from "./SectionHero";
 
-const heroImages = [
-  "/heroVjencanja/desktop/Lucija%26Ante%20-%20188.jpg",
-  "/heroVjencanja/desktop/Stjepan%20%26%20Lucija%20-%20422.jpg",
+const heroImages = ["/heroVjencanja/desktop/Lucija%26Ante%20-%20188.jpg"];
+// Portrait crops for phones (heroVjencanja/mobile).
+const heroImagesMobile = [
+  "/heroVjencanja/mobile/Lucija%26Ante%20-%20182.jpg",
+  "/heroVjencanja/mobile/Lucija%26Ante%20-%20184.jpg",
 ];
 
 export default function VjencanjaHero() {
@@ -13,6 +15,7 @@ export default function VjencanjaHero() {
       titleBottom=""
       description="Sačuvajte najvažniji dan života kroz kadar koji traje zauvijek. Elegantna, emotivna i autentična fotografija vašeg velikog dana."
       images={heroImages}
+      mobileImages={heroImagesMobile}
       imageAlt="Vjenčanje"
     />
   );

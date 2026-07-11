@@ -98,22 +98,25 @@ export default function MaturalneCTA() {
               minHeight: "60px",
               background: GOLD,
               color: "#111",
-              borderRadius: "10px",
+              borderRadius: "9999px",
               fontSize: "0.82rem",
               fontWeight: 700,
-              letterSpacing: "0.16em",
+              letterSpacing: "0.14em",
               textTransform: "uppercase",
               textDecoration: "none",
-              transition: "background 0.25s, transform 0.2s",
+              boxShadow: "0 8px 24px -6px rgba(190,158,92,0.55)",
+              transition: "background 0.25s, transform 0.2s, box-shadow 0.25s",
               WebkitTapHighlightColor: "transparent",
             }}
             onMouseEnter={(e) => {
               (e.currentTarget as HTMLAnchorElement).style.background = "#a9884a";
               (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)";
+              (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 12px 30px -6px rgba(190,158,92,0.65)";
             }}
             onMouseLeave={(e) => {
               (e.currentTarget as HTMLAnchorElement).style.background = GOLD;
               (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
+              (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 8px 24px -6px rgba(190,158,92,0.55)";
             }}
           >
             Pošalji upit
@@ -130,10 +133,10 @@ export default function MaturalneCTA() {
               background: "transparent",
               color: "#111",
               border: "1px solid rgba(0,0,0,0.2)",
-              borderRadius: "10px",
+              borderRadius: "9999px",
               fontSize: "0.82rem",
-              fontWeight: 600,
-              letterSpacing: "0.16em",
+              fontWeight: 700,
+              letterSpacing: "0.14em",
               textTransform: "uppercase",
               textDecoration: "none",
               transition: "background 0.25s, border-color 0.25s",

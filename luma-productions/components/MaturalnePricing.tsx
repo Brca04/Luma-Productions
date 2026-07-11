@@ -339,7 +339,7 @@ export default function MaturalnePricing() {
         </div>
 
         <div className="mt-20 flex justify-center">
-          <div className="flex items-center gap-4 px-7 py-5 rounded-2xl border border-[#BE9E5C]/25 bg-[#BE9E5C]/[0.05] max-w-xl">
+          <div className="flex items-center gap-4 px-7 py-5 rounded-2xl border border-[#BE9E5C]/25 bg-white shadow-[0_16px_44px_-30px_rgba(0,0,0,0.35)] max-w-xl">
             <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#BE9E5C] whitespace-nowrap border-r border-[#BE9E5C]/25 pr-4">
               Kapara
             </span>

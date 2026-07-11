@@ -316,7 +316,7 @@ export default function KontaktClient() {
                   <button
                     type="submit"
                     disabled={status === "sending"}
-                    className="group inline-flex items-center gap-3 px-8 py-4 border-2 border-gray-900 font-semibold text-gray-900 bg-white transition-all duration-300 hover:bg-gray-900 hover:text-white text-sm tracking-wide disabled:opacity-50 disabled:cursor-not-allowed rounded-full"
+                    className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#BE9E5C] text-[#111] font-bold uppercase text-xs tracking-[0.14em] shadow-[0_8px_24px_-6px_rgba(190,158,92,0.55)] hover:bg-[#a9884a] hover:shadow-[0_12px_30px_-6px_rgba(190,158,92,0.65)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {status === "sending" ? "Slanje..." : "Pošalji poruku"}
                     {status !== "sending" && (

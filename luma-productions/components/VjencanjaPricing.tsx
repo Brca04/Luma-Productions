@@ -275,8 +275,14 @@ function Card({ plan }: { plan: Plan }) {
 
 export default function VjencanjaPricing() {
   return (
-    <section className="bg-white py-24 lg:py-28">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-24 lg:py-28 overflow-hidden">
+      {/* Background image */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: 'url("/heroVjencanja/desktop/Stjepan%26Lucija-422.jpg")' }}
+      />
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
           <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#BE9E5C] mb-5">
             Cjenik · Vjenčanja 2026.
@@ -293,7 +299,11 @@ export default function VjencanjaPricing() {
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-9">
                 <div className="flex items-center gap-3.5">
                   <span className="w-1.5 h-7 rounded-full bg-[#BE9E5C]" />
-                  <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-900">
+                  <h3
+                    className={`text-2xl md:text-3xl font-semibold tracking-tight ${
+                      group.label === "Dodatno" ? "text-[#BE9E5C]" : "text-gray-900"
+                    }`}
+                  >
                     {group.label}
                   </h3>
                 </div>
@@ -316,7 +326,7 @@ export default function VjencanjaPricing() {
         </div>
 
         <div className="mt-20 flex justify-center">
-          <div className="flex items-center gap-4 px-7 py-5 rounded-2xl border border-[#BE9E5C]/25 bg-[#BE9E5C]/[0.05] max-w-xl">
+          <div className="flex items-center gap-4 px-7 py-5 rounded-2xl border border-[#BE9E5C]/25 bg-white shadow-[0_16px_44px_-30px_rgba(0,0,0,0.35)] max-w-xl">
             <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#BE9E5C] whitespace-nowrap border-r border-[#BE9E5C]/25 pr-4">
               Napomena
             </span>

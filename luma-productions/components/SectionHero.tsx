@@ -10,6 +10,7 @@ type SectionHeroProps = {
   eyebrow?: string;
   videoSrc?: string;
   images?: string[];
+  mobileImages?: string[];
   imageAlt?: string;
 };
 
@@ -20,17 +21,36 @@ export default function SectionHero({
   eyebrow,
   videoSrc,
   images,
+  mobileImages,
   imageAlt = "",
 }: SectionHeroProps) {
   const [currentImage, setCurrentImage] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Switch to the mobile image set on small (portrait) screens.
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const activeImages =
+    isMobile && mobileImages && mobileImages.length > 0 ? mobileImages : images;
+
+  // Reset to the first slide whenever the active set changes.
+  useEffect(() => {
+    setCurrentImage(0);
+  }, [isMobile]);
 
   useEffect(() => {
-    if (!images || images.length <= 1) return;
+    if (!activeImages || activeImages.length <= 1) return;
     const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
+      setCurrentImage((prev) => (prev + 1) % activeImages.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [images]);
+  }, [activeImages]);
 
   return (
     <section className="relative h-[100dvh] overflow-hidden bg-black">
@@ -62,9 +82,9 @@ export default function SectionHero({
         >
           <source src={videoSrc} type="video/mp4" />
         </video>
-      ) : images && images.length > 0 ? (
+      ) : activeImages && activeImages.length > 0 ? (
         <div className="sh-bg">
-          {images.map((src, i) => (
+          {activeImages.map((src, i) => (
             <div key={src} className="sh-img" style={{ opacity: i === currentImage ? 1 : 0 }}>
               <Image
                 src={src}
@@ -115,7 +135,7 @@ export default function SectionHero({
 
       {/* Scroll indicator */}
       <div className="sh-scroll">
-        <span className="sh-scroll-label">scroll</span>
+        <span className="sh-scroll-label">dolje</span>
         <div className="sh-scroll-dot" />
       </div>
     </section>

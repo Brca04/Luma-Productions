@@ -14,6 +14,13 @@ const HERO_IMAGES = [
   "/heroHompage/desktop/SvetoKr%C5%A1tenje%C5%A0imun_%20-%203.jpg",
 ];
 
+// Portrait crops that fit tall phone screens better.
+const HERO_IMAGES_MOBILE = [
+  "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-141.jpg",
+  "/maturalne/geodetska/MaturalnaVe%C4%8Der_%20Geodetska%20-%201.jpg",
+  "/krstenja/Andro/Sveto_kr%C5%A1tenje_Andro%20%20-%201.jpg",
+];
+
 export default function Home() {
   // Memoize arrays to avoid re-creating them on every render (small Lighthouse win)
   const services = useMemo(
@@ -89,6 +96,7 @@ export default function Home() {
         titleBottom="Productions"
         description=""
         images={HERO_IMAGES}
+        mobileImages={HERO_IMAGES_MOBILE}
         imageAlt="Luma Productions"
       />
 
