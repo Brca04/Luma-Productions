@@ -129,8 +129,8 @@ export default function SectionHero({
           <span className="l1">{titleTop}</span>
           {titleBottom && <span className="l2">{titleBottom}</span>}
         </h1>
-        <div className="sh-divider" />
-        <p className="sh-sub">{description}</p>
+        {description && <div className="sh-divider" />}
+        {description && <p className="sh-sub">{description}</p>}
       </div>
 
       {/* Scroll indicator */}
