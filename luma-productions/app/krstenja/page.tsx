@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import KrstenjaHero from '@/components/KrstenjaHero';
 import PricingCard from '@/components/PricingCard';
+import PhotoboothServices from '@/components/PhotoboothServices';
 
 export const metadata: Metadata = {
   title: 'Najam Photobooth-a',
@@ -107,6 +108,8 @@ export default function Photobooth() {
           </div>
         </div>
       </section>
+
+      <PhotoboothServices />
 
       {/* Pricing Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
