@@ -1,11 +1,8 @@
 import SectionHero from "./SectionHero";
 
 const heroImages = [
-  "/prikaz.webp",
-  "/prikaz2.webp",
-  "/prikaz3.webp",
-  "/prikaz4.webp",
-  "/prikaz5.webp",
+  "/heroVjencanja/desktop/Lucija%26Ante%20-%20188.jpg",
+  "/heroVjencanja/desktop/Stjepan%20%26%20Lucija%20-%20422.jpg",
 ];
 
 export default function VjencanjaHero() {
