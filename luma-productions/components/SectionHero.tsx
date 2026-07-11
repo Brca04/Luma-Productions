@@ -38,7 +38,6 @@ export default function SectionHero({
         @keyframes hRise { from { opacity:0; transform: translateY(42px); } to { opacity:1; transform: translateY(0); } }
         @keyframes hFade { from { opacity:0; } to { opacity:1; } }
         @keyframes hScroll { 0%,100% { transform: translateY(0); opacity:1; } 50% { transform: translateY(8px); opacity:0.3; } }
-        @keyframes hZoom { from { transform: scale(1); } to { transform: scale(1.08); } }
         .sh-eyebrow { font-size:0.72rem; font-weight:600; letter-spacing:0.34em; text-transform:uppercase; color:#BE9E5C; margin:0; opacity:0; animation:hFade 0.8s ease 0.3s forwards; }
         .sh-title { font-size:clamp(3.5rem, 9vw, 8rem); font-weight:600; line-height:0.98; letter-spacing:-0.02em; color:#fff; margin:1.3rem 0 0; }
         .sh-title .l1 { display:block; opacity:0; animation:hRise 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s forwards; }
@@ -48,8 +47,8 @@ export default function SectionHero({
         .sh-scroll { position:absolute; bottom:max(2rem, env(safe-area-inset-bottom, 0px) + 1.5rem); left:0; right:0; width:fit-content; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:8px; z-index:10; opacity:0; animation:hFade 0.8s ease 1.7s forwards; }
         .sh-scroll-label { font-size:0.6rem; font-weight:500; letter-spacing:0.3em; text-transform:uppercase; color:rgba(255,255,255,0.45); }
         .sh-scroll-dot { width:4px; height:4px; border-radius:50%; background:#BE9E5C; animation:hScroll 1.6s ease-in-out 2s infinite; }
-        .sh-bg { position:absolute; inset:0; animation:hZoom 12s ease-out forwards; }
-        .sh-img { position:absolute; inset:0; transition:opacity 1.2s ease; }
+        .sh-bg { position:absolute; inset:0; }
+        .sh-img { position:absolute; inset:0; transition:opacity 2.5s ease; }
       `}</style>
 
       {/* Background: video or rotating images */}

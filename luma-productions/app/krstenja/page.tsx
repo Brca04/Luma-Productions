@@ -1,8 +1,6 @@
 import { Metadata } from 'next';
 import KrstenjaHero from '@/components/KrstenjaHero';
 import PricingCard from '@/components/PricingCard';
-import WeddingGalleryCarousel from '@/components/WeddingGalleryCarousel';
-import { photoboothItems } from './data';
 
 export const metadata: Metadata = {
   title: 'Najam Photobooth-a',
@@ -71,14 +69,6 @@ export default function Photobooth() {
     },
   ];
 
-  const photoboothCards = photoboothItems.map((item, i) => ({
-    id: i + 1,
-    name: item.name,
-    category: item.category,
-    imageSrc: item.coverImage,
-    href: `/krstenja/${item.slug}`,
-  }));
-
   return (
     <div className="min-h-screen">
       <KrstenjaHero />
@@ -117,8 +107,6 @@ export default function Photobooth() {
           </div>
         </div>
       </section>
-
-      <WeddingGalleryCarousel cards={photoboothCards} />
 
       {/* Pricing Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">

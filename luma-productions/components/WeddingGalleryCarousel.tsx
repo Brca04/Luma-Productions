@@ -37,6 +37,22 @@ export default function WeddingGalleryCarousel({
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  // When arriving via a "#portfolio" link, start at the top and smoothly
+  // scroll down to this section (instead of an instant hash jump).
+  useEffect(() => {
+    if (window.location.hash !== "#portfolio") return;
+    const section = document.getElementById("portfolio");
+    if (!section) return;
+    window.scrollTo({ top: 0 });
+    const raf = requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.replaceState(null, "", window.location.pathname);
+      })
+    );
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
   const scrollByCard = (direction: "left" | "right") => {
     const el = scrollRef.current;
     if (!el) return;
@@ -49,7 +65,7 @@ export default function WeddingGalleryCarousel({
   };
 
   return (
-    <section className="pt-40 pb-24 bg-white">
+    <section id="portfolio" className="pt-40 pb-24 bg-white scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 flex items-end justify-between">
         <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900">
           Portfolio

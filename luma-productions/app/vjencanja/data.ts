@@ -4,7 +4,7 @@ export type WeddingItem = {
   category: string;
   coverImage: string;
   description?: string;
-  gallery: { src: string; caption?: string }[];
+  gallery: { src: string; width?: number; height?: number; caption?: string }[];
 };
 
 export const weddingItems: WeddingItem[] = [
@@ -16,14 +16,14 @@ export const weddingItems: WeddingItem[] = [
     description:
       " vjenčanje u srcu Zagreba — dan pun emocija, smijeha i radosti.",
     gallery: [
-      { src: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-141.jpg" },
-      { src: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-153.jpg" },
-      { src: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-173.jpg" },
-      { src: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-184.jpg" },
-      { src: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-190.jpg" },
-      { src: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-276.jpg" },
-      { src: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-295.jpg" },
-      { src: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-348.jpg" },
+      { src: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-141.jpg", width: 1825, height: 2738 },
+      { src: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-153.jpg", width: 1825, height: 2738 },
+      { src: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-173.jpg", width: 1825, height: 2738 },
+      { src: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-184.jpg", width: 2738, height: 1825 },
+      { src: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-190.jpg", width: 2738, height: 1825 },
+      { src: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-276.jpg", width: 1825, height: 2738 },
+      { src: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-295.jpg", width: 1825, height: 2738 },
+      { src: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-348.jpg", width: 2738, height: 1825 },
     ],
   },
   {

@@ -2,13 +2,17 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 
-import ImagePreviewModal from "@/components/ImagePreviewModal";
 import SectionHero from "@/components/SectionHero";
+import { maturalneItems } from "@/app/maturalne-veceri/data";
 
-const HERO_IMAGES = ["/prikaz.webp", "/prikaz2.webp", "/prikaz3.webp", "/prikaz4.webp", "/prikaz5.webp"];
+const HERO_IMAGES = [
+  "/heroHompage/desktop/Lucija%26Ante%20-%20138.jpg",
+  "/heroHompage/desktop/MaturalnaVe%C4%8Der_%20%C5%A0pogi%20-%20317.jpg",
+  "/heroHompage/desktop/SvetoKr%C5%A1tenje%C5%A0imun_%20-%203.jpg",
+];
 
 export default function Home() {
   // Memoize arrays to avoid re-creating them on every render (small Lighthouse win)
@@ -18,41 +22,41 @@ export default function Home() {
         title: "Maturalne Večeri",
         description: "Uhvatite najljepše trenutke vaše maturalne večeri",
         href: "/maturalne-veceri",
-        image: "/maturalna.webp",
+        image: "/menuImages/MaturalnaVe%C4%8Der_%20Titu%C5%A1-%20615.jpg",
       },
       {
         title: "Vjenčanja",
         description: "Vječno sačuvajte najvažnji dan vašeg života",
         href: "/vjencanja",
-        image: "/vjencanje.webp",
+        image: "/menuImages/Lucija%26Ante%20-%20208.jpg",
       },
       {
         title: "Sveto Krštenje",
         description: "Diskretna fotografija obreda i obiteljskog slavlja",
         href: "/sveto-krstenje",
-        image: "/krstenje.webp",
+        image: "/menuImages/Sveto_kr%C5%A1tenje_Andro%20%20-%2098.jpg",
       },
       {
         title: "Najam Photobooth-a",
         description: "Posebni obiteljski trenuci zaslužuju posebnu pažnju",
         href: "/krstenja",
-        image: "/krstenje.webp",
+        image: "/menuImages/MaturalnaVe%C4%8Der_%20GGG%20-%20473.jpg",
       },
     ],
     []
   );
 
-  const galleryImages = useMemo(
-    () => [
-      { src: "/prikaz.webp", caption: "Maturalna večer 2024" },
-      { src: "/prikaz2.webp", caption: "Vjenčanje Ana & Marko" },
-      { src: "/prikaz3.webp", caption: "Krštenje Mali Luka" },
-      { src: "/prikaz4.webp", caption: "Korporativni event 2024" },
-    ],
+  // Latest work — links to the real maturalne galleries.
+  const latestWorks = useMemo(
+    () =>
+      maturalneItems.slice(0, 4).map((m) => ({
+        name: m.name,
+        category: m.category,
+        coverImage: m.coverImage,
+        href: `/maturalne-veceri/${m.slug}`,
+      })),
     []
   );
-
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 60 },
@@ -225,15 +229,15 @@ export default function Home() {
             variants={staggerContainer}
             className="grid grid-cols-1 md:grid-cols-2 gap-6"
           >
-            {galleryImages.map((image, index) => (
-              <motion.div key={index} variants={cardVariant}>
-                <div
-                  className="relative h-[400px] bg-gray-200 overflow-hidden group cursor-pointer rounded-3xl shadow-[0_10px_40px_-12px_rgba(0,0,0,0.2)] transition-transform duration-500 ease-out hover:-translate-y-1"
-                  onClick={() => setPreviewImage(image.src)}
+            {latestWorks.map((work) => (
+              <motion.div key={work.href} variants={cardVariant}>
+                <Link
+                  href={work.href}
+                  className="relative block h-[400px] bg-gray-200 overflow-hidden group cursor-pointer rounded-3xl shadow-[0_10px_40px_-12px_rgba(0,0,0,0.2)] transition-transform duration-500 ease-out hover:-translate-y-1"
                 >
                   <Image
-                    src={image.src}
-                    alt={image.caption}
+                    src={work.coverImage}
+                    alt={work.name}
                     fill
                     loading="lazy"
                     quality={80}
@@ -241,17 +245,18 @@ export default function Home() {
                     sizes="(min-width: 768px) 50vw, 100vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                    <p className="text-white text-lg font-semibold tracking-tight">{image.caption}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-start justify-end p-6">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#BE9E5C] mb-1">
+                      {work.category}
+                    </p>
+                    <p className="text-white text-lg font-semibold tracking-tight">{work.name}</p>
                   </div>
-                </div>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
-
-      <ImagePreviewModal src={previewImage} onClose={() => setPreviewImage(null)} />
     </div>
   );
 }

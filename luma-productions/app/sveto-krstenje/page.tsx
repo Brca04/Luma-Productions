@@ -30,7 +30,7 @@ export default function SvetoKrstenje() {
   const pricingPlans: PricingPlan[] = [
     {
       name: 'Osnovni',
-      price: '250€',
+      price: '150€',
       imageSrc: '/krstenje.webp',
       features: [
         'Pokrivenost obreda u crkvi',
@@ -41,7 +41,7 @@ export default function SvetoKrstenje() {
     },
     {
       name: 'Standard',
-      price: '400€',
+      price: '200€',
       imageSrc: '/prikaz.webp',
       highlighted: true,
       features: [
@@ -54,7 +54,7 @@ export default function SvetoKrstenje() {
     },
     {
       name: 'Premium',
-      price: '550€',
+      price: '250€',
       imageSrc: '/prikaz2.webp',
       features: [
         'Cjelodnevna pokrivenost',

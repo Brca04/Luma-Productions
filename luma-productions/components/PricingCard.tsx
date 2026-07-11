@@ -51,13 +51,16 @@ export default function PricingCard({ plan }: PricingCardProps) {
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
       style={{
         fontFamily: "'DM Sans', 'Helvetica Neue', Arial, sans-serif",
+        position: 'relative',
         background: '#fff',
         border: plan.highlighted
-          ? '1.5px solid #BE9E5C'
-          : '1.5px solid rgba(0,0,0,0.1)',
+          ? '1px solid #BE9E5C'
+          : '1px solid rgba(0,0,0,0.09)',
+        borderLeft: '3px solid #BE9E5C',
+        borderRadius: '14px',
         boxShadow: plan.highlighted
-          ? '0 0 32px 0 rgba(190,158,92,0.12)'
-          : '0 1px 4px 0 rgba(0,0,0,0.08)',
+          ? '0 16px 44px -30px rgba(0,0,0,0.35), 0 0 32px 0 rgba(190,158,92,0.14)'
+          : '0 16px 44px -30px rgba(0,0,0,0.35)',
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
@@ -79,17 +82,16 @@ export default function PricingCard({ plan }: PricingCardProps) {
         </div>
       )}
 
-      <div style={{ padding: '24px 28px 28px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      <div style={{ padding: '30px 30px 28px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
 
         {/* Name row */}
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '13px' }}>
           <span style={{
-            fontFamily: "'Bebas Neue', 'Impact', sans-serif",
-            fontSize: '36px',
-            fontWeight: 400,
-            letterSpacing: '0.04em',
+            fontSize: 'clamp(22px, 6vw, 30px)',
+            fontWeight: 700,
+            letterSpacing: '-0.01em',
             color: '#111',
-            lineHeight: 1,
+            lineHeight: 1.1,
           }}>
             {plan.name}
           </span>
@@ -106,8 +108,8 @@ export default function PricingCard({ plan }: PricingCardProps) {
           )}
         </div>
 
-        {/* Gold hairline divider */}
-        <div style={{ borderTop: '1px solid rgba(190,158,92,0.25)', marginBottom: '20px' }} />
+        {/* Gold underline */}
+        <div style={{ width: '42px', height: '3px', borderRadius: '2px', background: '#BE9E5C', marginBottom: '24px' }} />
 
         {/* Feature list */}
         <motion.ul
@@ -172,10 +174,9 @@ export default function PricingCard({ plan }: PricingCardProps) {
           viewport={{ once: true, amount: 0.4 }}
         >
           <span style={{
-            fontFamily: "'Bebas Neue', 'Impact', sans-serif",
-            fontSize: '36px',
-            fontWeight: 400,
-            letterSpacing: '0.04em',
+            fontSize: '30px',
+            fontWeight: 700,
+            letterSpacing: '-0.01em',
             color: '#BE9E5C',
             lineHeight: 1,
           }}>

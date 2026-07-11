@@ -7,6 +7,8 @@ import { AnimatePresence, motion } from "framer-motion";
 
 export type PortfolioGalleryImage = {
   src: string;
+  width?: number;
+  height?: number;
   caption?: string;
 };
 
@@ -44,7 +46,7 @@ export default function PortfolioGallery({
       {/* Header */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-12">
         <Link
-          href={backHref}
+          href={`${backHref}#portfolio`}
           className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500 hover:text-[#BE9E5C] transition-colors mb-8"
         >
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -80,27 +82,39 @@ export default function PortfolioGallery({
         </div>
       </section>
 
-      {/* Grid */}
+      {/* Masonry grid — keeps each photo's natural orientation */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 md:gap-6">
           {images.map((img, i) => (
             <button
               key={img.src + i}
               type="button"
               onClick={() => setLightboxIndex(i)}
-              className={`group relative overflow-hidden rounded-2xl bg-gray-100 cursor-pointer ${
-                i % 5 === 0 ? "aspect-[4/5] md:col-span-2 md:row-span-2" : "aspect-[3/4]"
-              }`}
+              className="group relative mb-4 md:mb-6 block w-full break-inside-avoid overflow-hidden rounded-2xl bg-gray-100 cursor-pointer"
               aria-label={`Otvori fotografiju ${i + 1}`}
             >
-              <Image
-                src={img.src}
-                alt={img.caption ?? `${title} — ${i + 1}`}
-                fill
-                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                quality={80}
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              />
+              {img.width && img.height ? (
+                <Image
+                  src={img.src}
+                  alt={img.caption ?? `${title} — ${i + 1}`}
+                  width={img.width}
+                  height={img.height}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  quality={80}
+                  className="w-full h-auto transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+              ) : (
+                <div className="relative aspect-[3/4]">
+                  <Image
+                    src={img.src}
+                    alt={img.caption ?? `${title} — ${i + 1}`}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    quality={80}
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </div>
+              )}
               {img.caption && (
                 <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                   <p className="text-white text-sm font-light">{img.caption}</p>

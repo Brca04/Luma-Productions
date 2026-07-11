@@ -1,8 +1,6 @@
 import { Metadata } from 'next';
 import VjencanjaPricing from '@/components/VjencanjaPricing';
 import VjencanjaHero from '@/components/VjencanjaHero';
-import WeddingGalleryCarousel from '@/components/WeddingGalleryCarousel';
-import { weddingItems } from './data';
 import MaturalneCTA from '@/components/MaturalneCTA';
 
 export const metadata: Metadata = {
@@ -16,14 +14,6 @@ export const metadata: Metadata = {
 };
 
 export default function Vjencanja() {
-  const weddingCards = weddingItems.map((item, i) => ({
-    id: i + 1,
-    name: item.name,
-    category: item.category,
-    imageSrc: item.coverImage,
-    href: `/vjencanja/${item.slug}`,
-  }));
-
   return (
     <div className="min-h-screen">
       <VjencanjaHero />
@@ -64,8 +54,6 @@ export default function Vjencanja() {
           </div>
         </div>
       </section>
-
-      <WeddingGalleryCarousel cards={weddingCards} />
 
       <VjencanjaPricing />
 
