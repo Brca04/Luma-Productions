@@ -2,19 +2,15 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { useMemo, useState } from "react";
+import { motion } from "framer-motion";
 
 import ImagePreviewModal from "@/components/ImagePreviewModal";
+import SectionHero from "@/components/SectionHero";
+
+const HERO_IMAGES = ["/prikaz.webp", "/prikaz2.webp", "/prikaz3.webp", "/prikaz4.webp", "/prikaz5.webp"];
 
 export default function Home() {
-  const shouldReduceMotion = useReducedMotion();
-
   // Memoize arrays to avoid re-creating them on every render (small Lighthouse win)
   const services = useMemo(
     () => [
@@ -46,11 +42,6 @@ export default function Home() {
     []
   );
 
-  const heroImages = useMemo(
-    () => ["/prikaz.webp", "/prikaz2.webp", "/prikaz3.webp", "/prikaz4.webp", "/prikaz5.webp"],
-    []
-  );
-
   const galleryImages = useMemo(
     () => [
       { src: "/prikaz.webp", caption: "Maturalna večer 2024" },
@@ -61,25 +52,7 @@ export default function Home() {
     []
   );
 
-  const [currentImage, setCurrentImage] = useState(0);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-
-  // Automatic hero image cycling
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [heroImages.length]);
-
-
-  // Parallax (hero background moves slower than scroll)
-  const heroRef = useRef<HTMLElement | null>(null);
-  const { scrollY } = useScroll();
-
-  // Tweak these numbers to taste
-  const parallaxY = useTransform(scrollY, [0, 900], [0, 140]);
-  const parallaxScale = useTransform(scrollY, [0, 900], [1.06, 1.12]);
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 60 },
@@ -107,73 +80,13 @@ export default function Home() {
   return (
     <div>
       {/* Hero Section */}
-      <section
-  ref={heroRef as any}
-  className="relative h-screen flex items-end text-white overflow-hidden"
->
-
-        {/* Parallax background layer */}
-        <motion.div
-          aria-hidden="true"
-          className="absolute inset-0"
-          style={
-            shouldReduceMotion
-              ? undefined
-              : {
-                  y: parallaxY,
-                  scale: parallaxScale,
-                  willChange: "transform",
-                }
-          }
-        >
-          <Image
-            src={heroImages[currentImage]}
-            alt={`Hero background ${currentImage + 1}`}
-            fill
-            priority
-            // Lighthouse: always set sizes when using `fill`
-            sizes="100vw"
-            // Slightly lower quality helps performance without visible loss (adjust if needed)
-            quality={80}
-            className="object-cover"
-          />
-        </motion.div>
-
-        {/* Overlay stays fixed (no parallax) */}
-        <div className="absolute inset-0 bg-black/50" />
-
-        <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 40 }}
-          animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={
-            shouldReduceMotion ? undefined : { duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] as const }
-          }
-          className="relative px-6 pb-8 text-left max-w-3xl"
-        >
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">Luma Productions</h1>
-
-          {/* Image selector buttons */}
-          <div className="relative inline-flex space-x-2 rounded-full">
-            <motion.div
-              className="absolute h-3 w-3 bg-white rounded-full"
-              animate={shouldReduceMotion ? undefined : { x: currentImage * 20 }}
-              transition={shouldReduceMotion ? undefined : { type: "spring", stiffness: 300, damping: 30 }}
-              style={{ left: "8px", top: "50%", translateY: "-50%" }}
-            />
-            {heroImages.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentImage(index)}
-                className="relative w-3 h-3 rounded-full transition-colors z-10"
-                style={{
-                  backgroundColor: currentImage === index ? "transparent" : "rgba(255, 255, 255, 0.4)",
-                }}
-                aria-label={`Show image ${index + 1}`}
-              />
-            ))}
-          </div>
-        </motion.div>
-      </section>
+      <SectionHero
+        titleTop="Luma"
+        titleBottom="Productions"
+        description=""
+        images={HERO_IMAGES}
+        imageAlt="Luma Productions"
+      />
 
       {/* Intro Section */}
       <section className="max-w-7xl mx-auto px-6 py-24 bg-white">

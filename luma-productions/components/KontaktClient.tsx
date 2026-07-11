@@ -44,13 +44,19 @@ const SERVICE_LABELS: Record<string, string> = {
 };
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 60 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const } },
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
 const stagger = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.04 } },
+};
+
+// Motion disabled (reduced-motion): render final state instantly, no transform.
+const noMotion = {
+  hidden: { opacity: 1, y: 0 },
+  visible: { opacity: 1, y: 0 },
 };
 
 export default function KontaktClient() {
@@ -117,20 +123,23 @@ export default function KontaktClient() {
       <section className="min-h-screen bg-white flex flex-col justify-center">
       <div className="max-w-7xl mx-auto w-full px-6 pt-36 pb-24">
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <motion.div
+          className="grid grid-cols-1 lg:grid-cols-3 gap-6"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={stagger}
+        >
 
           {/* Info cards */}
           <motion.div
-            className="lg:col-span-1 flex flex-col gap-6"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={stagger}
+            className="hidden lg:flex lg:col-span-1 flex-col gap-6"
+            variants={shouldReduceMotion ? noMotion : stagger}
           >
             {INFO.map((item) => (
               <motion.div
                 key={item.label}
-                variants={fadeInUp}
+                variants={shouldReduceMotion ? noMotion : fadeInUp}
                 className="group bg-white border-2 border-gray-100 hover:border-gray-300 transition-all duration-300 p-6 rounded-2xl"
               >
                 <p className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: "#BE9E5C" }}>
@@ -155,10 +164,7 @@ export default function KontaktClient() {
           {/* Form */}
           <motion.div
             className="lg:col-span-2"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeInUp}
+            variants={shouldReduceMotion ? noMotion : fadeInUp}
           >
             <div className="bg-white border-2 border-gray-100 p-8 rounded-2xl">
               <h3 className="text-2xl font-bold mb-2">Kontaktirajte nas</h3>
@@ -322,7 +328,7 @@ export default function KontaktClient() {
             </div>
           </motion.div>
 
-        </div>
+        </motion.div>
       </div>
       </section>
     </div>

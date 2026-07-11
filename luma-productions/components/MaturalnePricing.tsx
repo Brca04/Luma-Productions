@@ -189,13 +189,15 @@ function Card({ plan }: { plan: Plan }) {
         {/* Title */}
         <h3
           style={{
-            fontSize: "30px",
+            fontSize: "clamp(22px, 6vw, 30px)",
             fontWeight: 700,
             letterSpacing: "-0.01em",
             color: "#111",
             lineHeight: 1.1,
             margin: 0,
             paddingRight: plan.badge ? "104px" : 0,
+            overflowWrap: "break-word",
+            wordBreak: "break-word",
           }}
         >
           {plan.title}
