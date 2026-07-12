@@ -13,8 +13,8 @@ export default function Navbar() {
     { name: 'POČETNA', href: '/' },
     { name: 'MATURALNE VEČERI', href: '/maturalne-veceri' },
     { name: 'VJENČANJA', href: '/vjencanja' },
-    { name: 'SVETO KRŠTENJE', href: '/sveto-krstenje' },
-    { name: 'PHOTOBOOTH', href: '/krstenja' },
+    { name: 'SVETO KRŠTENJE', href: '/krstenja' },
+    { name: 'PHOTOBOOTH', href: '/photobooth' },
     { name: 'KONTAKT', href: '/kontakt' },
   ];
 

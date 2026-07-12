@@ -6,6 +6,13 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   compress: true,
+  async redirects() {
+    return [
+      // Krštenja preseljena sa /sveto-krstenje na /krstenja
+      { source: '/sveto-krstenje', destination: '/krstenja', permanent: true },
+      { source: '/sveto-krstenje/:slug', destination: '/krstenja/:slug', permanent: true },
+    ]
+  },
 }
 
 module.exports = nextConfig

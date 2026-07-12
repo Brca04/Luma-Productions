@@ -24,12 +24,12 @@ const GOLD = "#BE9E5C";
 const GROUPS: Group[] = [
   {
     label: "Paketi vjenčanja",
-    caption: "Od klasične fotografije do potpune foto i video produkcije.",
+    caption: "",
     plans: [
       {
         title: "Luma",
         accent: "#1",
-        price: "700",
+        price: "1200",
         features: [
           "1 fotograf",
           "Do 800 digitalno obrađenih fotografija",
@@ -39,7 +39,7 @@ const GROUPS: Group[] = [
       {
         title: "Luma",
         accent: "#2",
-        price: "1300",
+        price: "1800",
         features: [
           "1 fotograf | 1 snimatelj",
           "Do 800 digitalno obrađenih fotografija",
@@ -50,7 +50,7 @@ const GROUPS: Group[] = [
       {
         title: "Luma",
         accent: "#3",
-        price: "1900",
+        price: "2400",
         badge: "Najpopularnije",
         features: [
           "1 fotograf | 2 snimatelja",
@@ -62,7 +62,7 @@ const GROUPS: Group[] = [
       {
         title: "Luma",
         accent: "#4",
-        price: "2500",
+        price: "3000",
         features: [
           "2 fotografa | 2 snimatelja",
           "Do 1800 digitalno obrađenih fotografija",
@@ -76,11 +76,11 @@ const GROUPS: Group[] = [
   {
     label: "Dodatno",
     caption: "Nadogradite paket posebnim detaljima.",
-    cols: 3,
+    cols: 2,
     plans: [
       {
         title: "Photobooth",
-        price: "300",
+        price: "400",
         features: [
           "6 sati na terenu",
           "Neograničen broj fotografija",
@@ -88,6 +88,11 @@ const GROUPS: Group[] = [
           "Izrada fotografija u fizičkom obliku",
           "Asistent za montažu i pomoć u korištenju",
         ],
+      },
+      {
+        title: "Instagram reel",
+        price: "150",
+        features: ["Instagram reel u trajanju do 1 minute"],
       },
       {
         title: "Zahvalnice",
@@ -285,9 +290,9 @@ export default function VjencanjaPricing() {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
           <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#BE9E5C] mb-5">
-            Cjenik · Vjenčanja 2026.
+            Cjenik · Vjenčanja 2027.
           </p>
-          <h2 className="text-4xl md:text-6xl font-semibold tracking-tight text-gray-900 leading-[1.05]">
+          <h2 className="text-4xl md:text-6xl font-semibold tracking-tight text-gray-900 leading-[1.05] drop-shadow-sm">
             Odaberite <span className="text-[#BE9E5C]">svoj paket</span>
           </h2>
           <div className="w-12 h-px bg-[#BE9E5C] mx-auto mt-7" />
@@ -299,11 +304,7 @@ export default function VjencanjaPricing() {
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-9">
                 <div className="flex items-center gap-3.5">
                   <span className="w-1.5 h-7 rounded-full bg-[#BE9E5C]" />
-                  <h3
-                    className={`text-2xl md:text-3xl font-semibold tracking-tight ${
-                      group.label === "Dodatno" ? "text-[#BE9E5C]" : "text-gray-900"
-                    }`}
-                  >
+                  <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-[#BE9E5C]">
                     {group.label}
                   </h3>
                 </div>

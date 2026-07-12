@@ -5,7 +5,7 @@ import { useState } from "react";
 
 // Stranice na kojima se gumb NE prikazuje.
 const HIDE_EXACT = ["/", "/kontakt"];
-const HIDE_PREFIX = ["/krstenja", "/sveto-krstenje"];
+const HIDE_PREFIX = ["/krstenja", "/photobooth"];
 
 export default function ReserveButton() {
   const pathname = usePathname() || "/";

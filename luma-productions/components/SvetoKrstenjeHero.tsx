@@ -10,7 +10,7 @@ export default function SvetoKrstenjeHero() {
       eyebrow="Fotografija · Sveto krštenje"
       titleTop="Sveto"
       titleBottom="Krštenje"
-      description="Nježna i diskretna fotografija svetog krštenja — od dolaska u crkvu i obreda do slavlja s obitelji. Čuvamo svaki sveti trenutak vašeg djeteta."
+      description="Sveti trenutak vašeg djeteta preoblikovan u obiteljske uspomene."
       images={heroImages}
       mobileImages={heroImagesMobile}
       imageAlt="Sveto krštenje"

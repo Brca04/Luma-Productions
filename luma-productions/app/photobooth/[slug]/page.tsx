@@ -3,12 +3,12 @@ import { notFound } from "next/navigation";
 
 import PortfolioGallery from "@/components/PortfolioGallery";
 import GalleryStructuredData from "@/components/GalleryStructuredData";
-import { getKrstenjeBySlug, krstenjeItems } from "../data";
+import { getPhotoboothBySlug, photoboothItems } from "../data";
 
 type Params = { slug: string };
 
 export function generateStaticParams(): Params[] {
-  return krstenjeItems.map((p) => ({ slug: p.slug }));
+  return photoboothItems.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
@@ -17,13 +17,13 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const item = getKrstenjeBySlug(slug);
-  if (!item) return { title: "Sveto krštenje" };
-  const title = `${item.name} — Sveto krštenje`;
+  const item = getPhotoboothBySlug(slug);
+  if (!item) return { title: "Photobooth" };
+  const title = `${item.name} — Photobooth`;
   const desc =
     item.description ??
-    `Fotografija svetog krštenja — ${item.name} (${item.category}).`;
-  const url = `/sveto-krstenje/${slug}`;
+    `Photobooth najam — ${item.name} (${item.category}).`;
+  const url = `/photobooth/${slug}`;
   return {
     title,
     description: desc,
@@ -33,26 +33,26 @@ export async function generateMetadata({
       url,
       title,
       description: desc,
-      images: [{ url: item.coverImage, alt: `${item.name} — sveto krštenje` }],
+      images: [{ url: item.coverImage, alt: `${item.name} — photobooth` }],
     },
     twitter: { card: "summary_large_image", images: [item.coverImage] },
   };
 }
 
-export default async function KrstenjeGalleryPage({
+export default async function PhotoboothGalleryPage({
   params,
 }: {
   params: Promise<Params>;
 }) {
   const { slug } = await params;
-  const item = getKrstenjeBySlug(slug);
+  const item = getPhotoboothBySlug(slug);
   if (!item) notFound();
 
   return (
     <>
     <GalleryStructuredData
-      sectionLabel="Sveto Krštenje"
-      sectionPath="/sveto-krstenje"
+      sectionLabel="Photobooth"
+      sectionPath="/photobooth"
       name={item.name}
       slug={slug}
       images={item.gallery}
@@ -62,8 +62,8 @@ export default async function KrstenjeGalleryPage({
       category={item.category}
       description={item.description}
       images={item.gallery}
-      backHref="/sveto-krstenje"
-      backLabel="Sva krštenja"
+      backHref="/photobooth"
+      backLabel="Svi eventi"
     />
     </>
   );

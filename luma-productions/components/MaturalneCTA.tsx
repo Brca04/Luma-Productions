@@ -5,7 +5,17 @@ import { motion } from "framer-motion";
 
 const GOLD = "#BE9E5C";
 
-export default function MaturalneCTA() {
+type MaturalneCTAProps = {
+  eyebrow?: string;
+  heading?: string;
+  subtitle?: string;
+};
+
+export default function MaturalneCTA({
+  eyebrow = "Vaša večer, naš zadatak",
+  heading = "Rezervirajte vaš datum",
+  subtitle = "Slobodnih termina je sve manje, osigurajte termin za svoj razred na vrijeme.",
+}: MaturalneCTAProps = {}) {
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -34,7 +44,7 @@ export default function MaturalneCTA() {
             margin: "0 0 1.75rem",
           }}
         >
-          Vaša večer, naš posao
+          {eyebrow}
         </motion.p>
 
         {/* Heading */}
@@ -53,7 +63,7 @@ export default function MaturalneCTA() {
             margin: 0,
           }}
         >
-          Rezervirajte vaš datum
+          {heading}
         </motion.h2>
 
         {/* Subtitle */}
@@ -71,7 +81,7 @@ export default function MaturalneCTA() {
             maxWidth: "34rem",
           }}
         >
-          Slobodnih termina je sve manje — osigurajte svoje mjesto na vrijeme.
+          {subtitle}
         </motion.p>
 
         {/* Buttons */}

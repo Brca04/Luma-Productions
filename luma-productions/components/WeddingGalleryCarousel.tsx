@@ -68,7 +68,7 @@ export default function WeddingGalleryCarousel({
     <section id="portfolio" className="pt-40 pb-24 bg-white scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 flex items-end justify-between">
         <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900">
-          Portfolio
+          Fotogalerija
         </h2>
       </div>
 

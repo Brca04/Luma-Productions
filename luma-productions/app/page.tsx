@@ -40,13 +40,13 @@ export default function Home() {
       {
         title: "Sveto Krštenje",
         description: "Diskretna fotografija obreda i obiteljskog slavlja",
-        href: "/sveto-krstenje",
+        href: "/krstenja",
         image: "/menuImages/Sveto_kr%C5%A1tenje_Andro%20%20-%2098.jpg",
       },
       {
         title: "Najam Photobooth-a",
         description: "Posebni obiteljski trenuci zaslužuju posebnu pažnju",
-        href: "/krstenja",
+        href: "/photobooth",
         image: "/menuImages/MaturalnaVe%C4%8Der_%20GGG%20-%20473.jpg",
       },
     ],

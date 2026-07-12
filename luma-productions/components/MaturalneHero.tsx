@@ -54,16 +54,16 @@ export default function MaturalneHero() {
           padding: "0 1.5rem",
         }}
       >
-        <p className="h-eyebrow">Fotografija &amp; Video · Matura 2026</p>
+        <p className="h-eyebrow">Maturalna večer 2027</p>
         <h1 className="h-title">
-          <span className="l1">Maturalne</span>
-          <span className="l2">Večeri</span>
+          <span className="l1">Fotografiranje</span>
+          <span className="l2">Maturalne Večeri</span>
         </h1>
         <div className="h-divider" />
         <p className="h-sub">
-          Profesionalna fotografija i video produkcija koja čuva najljepše
-          trenutke vaše maturalne večeri. Vrhunska kvaliteta, pristupačni
-          paketi, nezaboravne uspomene.
+          Profesionalno fotografiranje koje hvata najljepše trenutke vaše
+          maturalne večeri. Najviša kvaliteta, brza isporuka fotografija te
+          pristupačni paketi.
         </p>
       </div>
 

@@ -34,8 +34,9 @@ const GROUPS: Group[] = [
         features: [
           "1 fotograf",
           "Do 30 maturanata",
-          "Do 400 digitalno obrađenih fotografija",
+          "Do 200 digitalno obrađenih fotografija",
           "Isporuka materijala unutar 3 dana",
+          "Vrijeme na terenu od ulaska do 22h",
         ],
       },
       {
@@ -48,6 +49,7 @@ const GROUPS: Group[] = [
           "30+ maturanata",
           "Do 800 digitalno obrađenih fotografija",
           "Isporuka materijala unutar 4 dana",
+          "Vrijeme na terenu, 30 minuta prije ulaska do 01:00h",
         ],
       },
     ],
@@ -63,9 +65,10 @@ const GROUPS: Group[] = [
         unit: "maturantu",
         features: [
           "1 fotograf | 1 snimatelj",
-          "Highlight video u trajanju do 10 minuta",
-          "Do 500 digitalno obrađenih fotografija",
+          "Highlight video u trajanju do 15 minuta",
+          "Do 600 digitalno obrađenih fotografija",
           "Isporuka materijala unutar 7 dana",
+          "Vrijeme na terenu, 30 minuta prije ulaska do 01:00h",
         ],
       },
       {
@@ -76,9 +79,11 @@ const GROUPS: Group[] = [
         badge: "Najpopularnije",
         features: [
           "1 fotograf | 2 snimatelja",
-          "Video cijele večeri u trajanju do 60 minuta",
-          "Do 900 digitalno obrađenih fotografija",
+          "Highlight video u trajanju do 60 minuta",
+          "Do 800 digitalno obrađenih fotografija",
           "Isporuka materijala unutar 7 dana",
+          "Vrijeme na terenu, 30 minuta prije ulaska do 01:00h",
+          "Minimalan broj maturanata je 80 za ovaj paket",
         ],
       },
     ],
@@ -92,7 +97,7 @@ const GROUPS: Group[] = [
         title: "Photobooth",
         price: "4",
         unit: "maturantu",
-        badge: "Najpopularnije",
+        badge: "Maturanti preporučuju",
         note: "Uspomena koju odmah nosiš kući.",
         features: [
           "Do 5 sati na terenu",
@@ -105,16 +110,17 @@ const GROUPS: Group[] = [
         ],
       },
       {
-        title: "Photobook",
-        price: "200",
-        unit: "razredniku",
-        note: "Cijena uključuje ispis, ručnu izradu i lijepljenje fotografija u personalizirani photobook.",
+        title: "Poklon book za razrednika",
+        price: "300",
+        unit: "razredu",
+        note: "Maturanti šalju PDF s do 100 fotografija (s izleta, razrednih druženja…) za koje žele da razrednik/ca dobije uspomenu. Fotografije printamo na premium foto papiru i ručno lijepimo u personalizirani photobook s imenom razreda i godinom generacije na koricama. Book donosimo na maturalnu večer gdje ga maturanti mogu pokloniti razredniku. U booku je predviđeno mjesto za lijepljenje fotografija isprintanih na photoboothu te za osobne poruke uspomene pored svake fotografije.",
         features: [
           "Do 100 fotografija od učenika",
-          "Najbolje fotografije s maturalne večeri",
-          "Personalizirani photobook za razrednika/cu",
-          "Premium papir za fotografije",
-          "Isporuka booka zajedno sa fotografijama",
+          "Personalizirani photobook s imenom razreda i godinom generacije",
+          "Premium foto papir i ručna izrada",
+          "Mjesto za photobooth fotografije s maturalne večeri",
+          "Prostor za osobne poruke maturanata",
+          "Isporuka booka na samu maturalnu večer",
         ],
       },
     ],
@@ -298,7 +304,7 @@ function Card({ plan }: { plan: Plan }) {
 
 export default function MaturalnePricing() {
   return (
-    <section className="bg-white py-24 lg:py-28">
+    <section className="bg-white pt-6 pb-24 lg:pt-8 lg:pb-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
           <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#BE9E5C] mb-5">
@@ -345,7 +351,7 @@ export default function MaturalnePricing() {
             </span>
             <p className="text-sm text-gray-600 font-light leading-relaxed">
               Uplata 25% po završetku dogovora. Ostatak plaćanja na dan maturalne
-              večeri. Uplatu na R1 molimo zatražiti unaprijed.
+              večeri.
             </p>
           </div>
         </div>

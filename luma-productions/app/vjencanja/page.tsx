@@ -4,12 +4,12 @@ import VjencanjaHero from '@/components/VjencanjaHero';
 import MaturalneCTA from '@/components/MaturalneCTA';
 
 export const metadata: Metadata = {
-  title: 'Fotografija Vjenčanja',
-  description: 'Profesionalna fotografija vjenčanja. Sačuvajte najljepše trenutke vašeg velikog dana. Iskustvo, kreativnost i strast u svakom kadru.',
-  keywords: ['vjenčanje', 'fotografija vjenčanja', 'svadbena fotografija', 'fotograf za vjenčanje', 'foto studio'],
+  title: 'Fotograf za Vjenčanje Zagreb – Fotografiranje Vjenčanja',
+  description: 'Profesionalno fotografiranje vjenčanja u Zagrebu. Fotograf za vjenčanje koji čuva najljepše trenutke vašeg velikog dana — iskustvo, kreativnost i strast u svakom kadru.',
+  keywords: ['fotografiranje vjenčanja', 'fotograf za vjenčanje', 'fotograf za vjenčanje Zagreb', 'svadbena fotografija', 'fotografija vjenčanja', 'vjenčanje Zagreb'],
   alternates: { canonical: '/vjencanja' },
   openGraph: {
-    title: 'Fotografija Vjenčanja | Foto Studio',
+    title: 'Fotograf za Vjenčanje Zagreb – Fotografiranje Vjenčanja',
     description: 'Profesionalna fotografija vjenčanja. Sačuvajte najljepše trenutke vašeg velikog dana.',
     url: '/vjencanja',
   },
@@ -59,7 +59,10 @@ export default function Vjencanja() {
 
       <VjencanjaPricing />
 
-      <MaturalneCTA />
+      <MaturalneCTA
+        eyebrow="Zaslužujete uspomene koje traju vječno."
+        subtitle="Slobodnih termina je sve manje — osigurajte svoj datum na vrijeme."
+      />
 
     </div>
   );
