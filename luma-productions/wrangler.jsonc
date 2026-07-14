@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "luma-productions",
+  "compatibility_date": "2025-03-25",
+  // Static-assets-only deployment (no Worker script): serve the Next.js
+  // static export in ./out. `wrangler deploy` uploads this directory.
+  "assets": {
+    "directory": "./out"
+  }
+}
