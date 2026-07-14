@@ -4,8 +4,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import ReserveButton from "@/components/ReserveButton";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/react";
 
 export const viewport = {
   width: 'device-width',
@@ -137,8 +135,6 @@ export default function RootLayout({
         </main>
 
         <Footer />
-        <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );

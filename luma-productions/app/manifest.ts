@@ -1,5 +1,8 @@
 import { MetadataRoute } from 'next'
 
+// Required for `output: 'export'` — render this metadata route to a static file.
+export const dynamic = 'force-static'
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Luma Production',

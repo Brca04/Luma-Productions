@@ -1,0 +1,4 @@
+# Cloudflare Pages redirects (301 permanent).
+# Krštenja preseljena sa /sveto-krstenje na /krstenja
+/sveto-krstenje        /krstenja          301
+/sveto-krstenje/*      /krstenja/:splat   301

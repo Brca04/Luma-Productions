@@ -4,6 +4,9 @@ import { maturalneItems } from './maturalne-veceri/data'
 import { photoboothItems } from './photobooth/data'
 import { krstenjeItems } from './krstenja/data'
 
+// Required for `output: 'export'` — render this metadata route to a static file.
+export const dynamic = 'force-static'
+
 const baseUrl = 'https://www.luma-productions.net'
 
 export default function sitemap(): MetadataRoute.Sitemap {

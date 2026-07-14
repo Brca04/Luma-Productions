@@ -32,6 +32,14 @@ yarn-error.log*
 # vercel
 .vercel
 
+# cloudflare / opennext
+.open-next/
+.wrangler/
+.dev.vars
+
+# local image backup (do not deploy the unoptimized originals)
+/public_original
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
