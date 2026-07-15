@@ -93,20 +93,31 @@ export default function KontaktClient() {
       paket: paket || "—",
       dodatci: addons.length ? addons.join(", ") : "—",
       poruka: message,
-      _subject: `Nova upita – ${serviceLabel || "Kontakt"}`,
-      _template: "table",
-      _captcha: "false",
     };
 
+    // Submissions go to a Supabase Edge Function ("contact"), which stores the
+    // row in the database and forwards it by email (via Resend) to the studio.
+    // Both values are safe to expose publicly (the publishable key only lets the
+    // browser invoke the function; it cannot read the submissions table), so we
+    // hardcode them as defaults and allow an env var to override if ever needed.
+    const SUPABASE_URL =
+      process.env.NEXT_PUBLIC_SUPABASE_URL ??
+      "https://yhnludxvwkfwdhlsntjo.supabase.co";
+    const SUPABASE_ANON_KEY =
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??
+      "sb_publishable_e9j0I1jXLtL_feh3q1IK-Q_sFa45VXY";
+
     try {
-      const res = await fetch("https://formsubmit.co/ajax/info@luma-productions.net", {
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/contact`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          apikey: SUPABASE_ANON_KEY,
+        },
         body: JSON.stringify(payload),
       });
-      const json = await res.json().catch(() => null);
-      const ok = res.ok && json && (json.success === "true" || json.success === true);
-      if (!ok) throw new Error();
+      if (!res.ok) throw new Error();
       setStatus("success");
       form.reset();
       setService("");
