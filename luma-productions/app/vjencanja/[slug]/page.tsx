@@ -64,6 +64,7 @@ export default async function WeddingGalleryPage({
       images={item.gallery}
       backHref="/vjencanja"
       backLabel="Sva vjenčanja"
+      altKeyword="vjenčanje"
     />
     </>
   );

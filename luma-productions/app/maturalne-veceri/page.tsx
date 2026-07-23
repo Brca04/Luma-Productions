@@ -105,8 +105,7 @@ export default function MaturalneVeceri() {
                 Naš pristup
               </p>
               <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900 leading-[1.1]">
-                Fotografiranje maturalne večeri u{" "}
-                <span className="text-[#BE9E5C]">Zagrebu</span>
+                Fotografiranje <span className="text-[#BE9E5C]">maturalne večeri</span>
               </h2>
               <div className="w-12 h-px bg-[#BE9E5C] mt-6" />
             </div>

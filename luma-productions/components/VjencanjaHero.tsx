@@ -10,7 +10,7 @@ const heroImagesMobile = [
 export default function VjencanjaHero() {
   return (
     <SectionHero
-      eyebrow="Fotografija, video, reels"
+      eyebrow="Fotografija · Video · Reels"
       titleTop="Vjenčanja"
       titleBottom=""
       description="Sačuvajte najvažniji dan života kroz fotografije koji postaju vječna uspomena."

@@ -19,6 +19,8 @@ type PortfolioGalleryProps = {
   images: PortfolioGalleryImage[];
   backHref: string;
   backLabel?: string;
+  /** Keyword woven into image alt text for image-search SEO, e.g. "maturalna večer". */
+  altKeyword?: string;
 };
 
 export default function PortfolioGallery({
@@ -28,7 +30,10 @@ export default function PortfolioGallery({
   images,
   backHref,
   backLabel = "Natrag",
+  altKeyword,
 }: PortfolioGalleryProps) {
+  const altFor = (i: number) =>
+    `${title} — ${altKeyword ?? category} — fotografija ${i + 1}`;
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const closeLightbox = () => setLightboxIndex(null);
@@ -96,7 +101,7 @@ export default function PortfolioGallery({
               {img.width && img.height ? (
                 <Image
                   src={img.src}
-                  alt={img.caption ?? `${title} — ${category} — fotografija ${i + 1}`}
+                  alt={img.caption ?? altFor(i)}
                   width={img.width}
                   height={img.height}
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
@@ -107,7 +112,7 @@ export default function PortfolioGallery({
                 <div className="relative aspect-[3/4]">
                   <Image
                     src={img.src}
-                    alt={img.caption ?? `${title} — ${category} — fotografija ${i + 1}`}
+                    alt={img.caption ?? altFor(i)}
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     quality={80}

@@ -45,10 +45,9 @@ export default function Photobooth() {
       imageSrc: '/prikaz.webp',
       features: [
         '3 sata najma',
-        'Neograničeni digitalni ispisi',
-        'Osnovni set rekvizita',
+        'Neograničen ispis fotografija',
         'Online galerija sa svim fotografijama',
-        'Dostava i postavljanje',
+        'Asistent za pomoć i postavljanje',
       ],
     },
     {
@@ -60,10 +59,9 @@ export default function Photobooth() {
         '4 sata najma',
         'Neograničeni fizički ispisi',
         'Prošireni set rekvizita',
-        'Izbor pozadine',
+        'Izbor pozadine po želji',
         'Online galerija sa svim fotografijama',
-        'USB sa svim materijalima',
-        'Dostava i postavljanje',
+        'Asistent za pomoć i postavljanje',
       ],
     },
     {
@@ -74,11 +72,10 @@ export default function Photobooth() {
         '6 sati najma',
         'Neograničeni fizički ispisi',
         'Custom brendirani layout',
-        'Custom pozadina ili backdrop',
+        'Izbor pozadine po želji',
         'Premium set rekvizita',
-        'Instant upload na društvene mreže',
         'Online galerija i USB',
-        'Dedicirani operater',
+        'Asistent za pomoć i postavljanje',
       ],
     },
   ];
@@ -135,16 +132,16 @@ export default function Photobooth() {
             {/* Right — paragraphs */}
             <div className="space-y-6 max-w-2xl lg:pt-2">
               <p className="text-lg text-gray-600 leading-[1.8] font-light">
-                Najam photobootha pretvara svaki event u interaktivno iskustvo. Od
-                vjenčanja i maturalnih večeri do korporativnih lansiranja i privatnih
-                slavlja — naš photobooth u Zagrebu donosi rekvizite, svjetla i instant
-                ispise, a vaši gosti stvaraju uspomene koje odmah mogu ponijeti kući.
+                Photobooth je kutak na proslavi oko kojeg se uvijek okupi
+                najviše smijeha. Od vjenčanja i maturalnih večeri do
+                korporativnih događanja i privatnih slavlja, a gosti stvaraju
+                uspomene koje odmah mogu ponijeti kući.
               </p>
               <p className="text-lg text-gray-600 leading-[1.8] font-light">
-                Svaki paket uključuje dostavu, postavljanje i operatera koji brine o
-                tehnici dok vi uživate u slavlju. Pozadine, layout ispisa i rekvizite
-                prilagođavamo temi vašeg eventa, a sve fotografije dobijate i u
-                digitalnoj galeriji odmah nakon događaja.
+                Svaki paket uključuje dostavu, postavljanje i operatera koji
+                brine o svemu dok se vi opuštate i uživate u slavlju. Pozadine,
+                dizajn ispisa i rekvizite prilagođavamo temi događaja, a sve
+                fotografije dobivate i u digitalnoj galeriji odmah nakon eventa.
               </p>
             </div>
           </div>

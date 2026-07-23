@@ -15,22 +15,22 @@ const SERVICES: Service[] = [
   {
     label: "Print fotografija",
     description:
-      "Ispišite svoje fotografije u manje od 10 sekundi. Uživajte u trenutku dok vaša uspomena postaje stvarna. Svaka fotografija ispisana je na premium foto papiru vrhunske kvalitete — brza, jednostavna i savršena uspomena koju možete ponijeti sa sobom.",
+      "Ispišite svoje fotografije u manje od 10 sekundi. Uživajte u trenutku dok vaša uspomena postaje stvarna. Svaka fotografija ispisana je na premium foto papiru vrhunske kvalitete. Brza, jednostavna i savršena uspomena koju možete ponijeti sa sobom.",
   },
   {
     label: "Rekviziti",
     description:
-      "Veliki izbor zabavnih rekvizita za sve prigode — vjenčanja, rođendane, maturalne večeri i više. Dodajte smijeh i kreativnost svakoj fotografiji. Svaka slika postaje nezaboravan trenutak!",
+      "Veliki izbor zabavnih rekvizita za sve prigode. Vjenčanja, korporativna događanja i više. Dodajte smijeh i kreativnost svakoj fotografiji. Svaka slika postaje nezaboravan trenutak!",
   },
   {
     label: "Pozadine",
     description:
-      "Birajte između nekoliko različitih pozadina, prilagođenih svakoj prilici — od elegantnih i veselih do tematskih. Stvaraju savršenu scenu i dodaju karakter fotografijama.",
+      "Birajte između nekoliko različitih pozadina, prilagođenih svakoj prilici. Stvaraju savršenu scenu i dodaju karakter fotografijama.",
   },
   {
     label: "Dizajn fotografija",
     description:
-      "Personaliziramo okvir fotografija prema vašim željama — uključujući imena, datume i posebne grafike.",
+      "Personaliziramo okvir fotografija prema vašim željama, uključujući imena, datume i posebne grafike.",
   },
   {
     label: "Online galerija",

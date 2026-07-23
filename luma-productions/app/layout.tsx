@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default:
-      "Luma Production - Profesionalna Fotografija | Vjenčanja, Maturalne Večeri, Krštenja",
-    template: "%s | Luma Production",
+      "Luma Productions - Profesionalna Fotografija | Vjenčanja, Maturalne Večeri, Krštenja",
+    template: "%s | Luma Productions",
   },
   description:
     "Profesionalna fotografija za vjenčanja, maturalne večeri i krštenja. Vrhunska kvaliteta i pristupačne cijene.",
@@ -39,9 +39,9 @@ export const metadata: Metadata = {
     "foto studio",
     "profesionalni fotograf",
   ],
-  authors: [{ name: "Luma Production" }],
-  creator: "Luma Production",
-  publisher: "Luma Production",
+  authors: [{ name: "Luma Productions" }],
+  creator: "Luma Productions",
+  publisher: "Luma Productions",
   formatDetection: {
     email: false,
     address: false,
@@ -51,8 +51,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "hr_HR",
     url: SITE_URL,
-    siteName: "Luma Production",
-    title: "Luma Production - Profesionalna Fotografija",
+    siteName: "Luma Productions",
+    title: "Luma Productions - Profesionalna Fotografija",
     description:
       "Profesionalna fotografija za vjenčanja, maturalne večeri i krštenja.",
     images: [
@@ -60,13 +60,13 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Luma Production - Profesionalna Fotografija",
+        alt: "Luma Productions - Profesionalna Fotografija",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Luma Production - Profesionalna Fotografija",
+    title: "Luma Productions - Profesionalna Fotografija",
     description:
       "Profesionalna fotografija za vjenčanja, maturalne večeri i krštenja.",
     images: ["/og-image.jpg"],
@@ -93,28 +93,31 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "ProfessionalService"],
     "@id": `${SITE_URL}/#business`,
-    name: "Luma Production",
+    name: "Luma Productions",
     image: `${SITE_URL}/og-image.jpg`,
     logo: `${SITE_URL}/luma-productions-logo-225x300.webp`,
     url: SITE_URL,
     email: "info@luma-productions.net",
+    telephone: "+385976172191",
+    priceRange: "€€",
     description:
       "Profesionalna fotografija za vjenčanja, maturalne večeri i krštenja.",
     address: {
       "@type": "PostalAddress",
+      addressLocality: "Zagreb",
       addressCountry: "HR",
     },
-    areaServed: {
-      "@type": "Country",
-      name: "Hrvatska",
-    },
+    areaServed: [
+      { "@type": "City", name: "Zagreb" },
+      { "@type": "Country", name: "Hrvatska" },
+    ],
     knowsAbout: [
       "Fotografija vjenčanja",
       "Fotografija maturalnih večeri",
       "Fotografija krštenja",
       "Photobooth najam",
     ],
-    sameAs: [] as string[],
+    sameAs: ["https://www.instagram.com/lumaproductions__/"],
   };
 
   return (

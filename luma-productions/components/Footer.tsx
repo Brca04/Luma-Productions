@@ -32,6 +32,12 @@ export default function Footer() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-center md:text-left flex flex-col justify-center"
           >
+            <Link
+              href="/faq"
+              className="inline-block mb-2 md:mb-3 text-xs uppercase tracking-widest text-white/70 hover:text-[#BE9E5C] transition-colors duration-300"
+            >
+              Česta pitanja
+            </Link>
             <h3 className="text-sm md:text-base font-bold mb-2 md:mb-3 tracking-wide">Kontaktirajte nas</h3>
             <div className="space-y-1 text-white/80 text-xs">
               <p className="break-all hover:text-[#BE9E5C] transition-colors cursor-pointer">info@luma-productions.net</p>

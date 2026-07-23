@@ -100,7 +100,7 @@ export default function SvetoKrstenje() {
             <div className="space-y-6 max-w-2xl lg:pt-2">
               <p className="text-lg text-gray-600 leading-[1.8] font-light">
                 Krštenje je jedan od najvažnijih dana u životu vašeg djeteta i
-                obitelji. Fotografiramo diskretno i s poštovanjem prema obredu —
+                obitelji. Fotografiramo diskretno i s poštovanjem prema obredu,
                 od dolaska u crkvu i svetog čina do zagrljaja i suza radosnica
                 koje slijede.
               </p>

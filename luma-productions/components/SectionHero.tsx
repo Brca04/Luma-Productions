@@ -59,7 +59,7 @@ export default function SectionHero({
         @keyframes hFade { from { opacity:0; } to { opacity:1; } }
         @keyframes hScroll { 0%,100% { transform: translateY(0); opacity:1; } 50% { transform: translateY(8px); opacity:0.3; } }
         .sh-eyebrow { font-size:0.72rem; font-weight:600; letter-spacing:0.34em; text-transform:uppercase; color:#BE9E5C; margin:0; opacity:0; animation:hFade 0.8s ease 0.3s forwards; }
-        .sh-title { font-size:clamp(3.5rem, 9vw, 8rem); font-weight:600; line-height:0.98; letter-spacing:-0.02em; color:#fff; margin:1.3rem 0 0; }
+        .sh-title { font-size:clamp(3rem, 7.5vw, 6.5rem); font-weight:600; line-height:0.98; letter-spacing:-0.02em; color:#fff; margin:1.3rem 0 0; }
         .sh-title .l1 { display:block; opacity:0; animation:hRise 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s forwards; }
         .sh-title .l2 { display:block; color:#BE9E5C; opacity:0; animation:hRise 0.9s cubic-bezier(0.16,1,0.3,1) 0.68s forwards; }
         .sh-divider { width:64px; height:1px; background:rgba(190,158,92,0.65); margin:1.9rem auto 0; opacity:0; animation:hFade 1s ease 0.95s forwards; }
@@ -135,7 +135,7 @@ export default function SectionHero({
 
       {/* Scroll indicator */}
       <div className="sh-scroll">
-        <span className="sh-scroll-label">dolje</span>
+        <span className="sh-scroll-label">scroll</span>
         <div className="sh-scroll-dot" />
       </div>
     </section>

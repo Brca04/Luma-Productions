@@ -5,7 +5,7 @@ export const dynamic = 'force-static'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Luma Production',
+    name: 'Luma Productions',
     short_name: 'Luma',
     description:
       'Profesionalna fotografija za vjenčanja, maturalne večeri i krštenja.',

@@ -64,6 +64,7 @@ export default async function MaturalneGalleryPage({
       images={item.gallery}
       backHref="/maturalne-veceri"
       backLabel="Sve maturalne večeri"
+      altKeyword="maturalna večer"
     />
     </>
   );

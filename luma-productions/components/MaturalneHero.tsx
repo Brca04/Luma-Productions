@@ -6,7 +6,7 @@ export default function MaturalneHero() {
         @keyframes hFade { from { opacity:0; } to { opacity:1; } }
         @keyframes hScroll { 0%,100% { transform: translateY(0); opacity:1; } 50% { transform: translateY(8px); opacity:0.3; } }
         .h-eyebrow { font-size:0.72rem; font-weight:600; letter-spacing:0.34em; text-transform:uppercase; color:#BE9E5C; margin:0; opacity:0; animation:hFade 0.8s ease 0.3s forwards; }
-        .h-title { font-size:clamp(3.5rem, 9vw, 8rem); font-weight:600; line-height:0.98; letter-spacing:-0.02em; color:#fff; margin:1.3rem 0 0; }
+        .h-title { font-size:clamp(3rem, 7.5vw, 6.5rem); font-weight:600; line-height:0.98; letter-spacing:-0.02em; color:#fff; margin:1.3rem 0 0; }
         .h-title .l1 { display:block; opacity:0; animation:hRise 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s forwards; }
         .h-title .l2 { display:block; color:#BE9E5C; opacity:0; animation:hRise 0.9s cubic-bezier(0.16,1,0.3,1) 0.68s forwards; }
         .h-divider { width:64px; height:1px; background:rgba(190,158,92,0.65); margin:1.9rem auto 0; opacity:0; animation:hFade 1s ease 0.95s forwards; }
@@ -61,15 +61,15 @@ export default function MaturalneHero() {
         </h1>
         <div className="h-divider" />
         <p className="h-sub">
-          Profesionalno fotografiranje koje hvata najljepše trenutke vaše
-          maturalne večeri. Najviša kvaliteta, brza isporuka fotografija te
-          pristupačni paketi.
+          Vaša matura je noć za pamćenje, a mi smo tu da je zabilježimo do
+          posljednjeg trenutka. Brza isporuka i paketi prilagođeni svakom
+          razredu.
         </p>
       </div>
 
       {/* Scroll indicator */}
       <div className="h-scroll">
-        <span className="h-scroll-label">dolje</span>
+        <span className="h-scroll-label">scroll</span>
         <div className="h-scroll-dot" />
       </div>
     </section>

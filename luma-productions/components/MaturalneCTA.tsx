@@ -163,6 +163,38 @@ export default function MaturalneCTA({
           >
             Nazovite nas
           </a>
+
+          <Link
+            href="/faq"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "min(100%, 20rem)",
+              minHeight: "60px",
+              background: "transparent",
+              color: "#111",
+              border: "1px solid rgba(0,0,0,0.2)",
+              borderRadius: "9999px",
+              fontSize: "0.82rem",
+              fontWeight: 700,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              transition: "background 0.25s, border-color 0.25s",
+              WebkitTapHighlightColor: "transparent",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.background = "rgba(0,0,0,0.04)";
+              (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(0,0,0,0.45)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
+              (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(0,0,0,0.2)";
+            }}
+          >
+            Česta pitanja
+          </Link>
         </motion.div>
       </div>
     </motion.section>

@@ -64,6 +64,7 @@ export default async function PhotoboothGalleryPage({
       images={item.gallery}
       backHref="/photobooth"
       backLabel="Svi eventi"
+      altKeyword="photobooth"
     />
     </>
   );

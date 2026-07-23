@@ -64,6 +64,7 @@ export default async function KrstenjeGalleryPage({
       images={item.gallery}
       backHref="/krstenja"
       backLabel="Sva krštenja"
+      altKeyword="sveto krštenje"
     />
     </>
   );

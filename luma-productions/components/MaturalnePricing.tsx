@@ -24,7 +24,7 @@ const GOLD = "#BE9E5C";
 const GROUPS: Group[] = [
   {
     label: "Foto ponuda",
-    caption: "Klasična fotografska pokrivenost večeri.",
+    caption: "",
     plans: [
       {
         title: "Foto",
@@ -56,7 +56,7 @@ const GROUPS: Group[] = [
   },
   {
     label: "Mix ponuda",
-    caption: "Foto i video — cijela večer u jednom paketu.",
+    caption: "",
     plans: [
       {
         title: "Mix",
@@ -83,14 +83,14 @@ const GROUPS: Group[] = [
           "Do 800 digitalno obrađenih fotografija",
           "Isporuka materijala unutar 7 dana",
           "Vrijeme na terenu, 30 minuta prije ulaska do 01:00h",
-          "Minimalan broj maturanata je 80 za ovaj paket",
+          "Minimalan broj maturanata je 80",
         ],
       },
     ],
   },
   {
     label: "Dodatno",
-    caption: "Nadogradite paket nezaboravnim detaljima.",
+    caption: "",
     stacked: true,
     plans: [
       {
@@ -113,14 +113,13 @@ const GROUPS: Group[] = [
         title: "Poklon book za razrednika",
         price: "300",
         unit: "razredu",
-        note: "Maturanti šalju PDF s do 100 fotografija (s izleta, razrednih druženja…) za koje žele da razrednik/ca dobije uspomenu. Fotografije printamo na premium foto papiru i ručno lijepimo u personalizirani photobook s imenom razreda i godinom generacije na koricama. Book donosimo na maturalnu večer gdje ga maturanti mogu pokloniti razredniku. U booku je predviđeno mjesto za lijepljenje fotografija isprintanih na photoboothu te za osobne poruke uspomene pored svake fotografije.",
+        note: "Maturanti kroz školsku godinu prikupe svoje najljepše fotografije — s putovanja, izleta i razrednih druženja — te nam pošalju do 100 njih. Sve ostalo je na nama. Fotografije printamo na premium foto papiru i ručno uvezujemo u personalizirani photobook s imenom razreda i godinom generacije na koricama. Book donosimo gotov na maturalnu večer, kao poklon za razrednika. Uz svaku fotografiju predviđen je prostor za osobne poruke, posvete i dodatne fotografije s photobootha.",
         features: [
-          "Do 100 fotografija od učenika",
-          "Personalizirani photobook s imenom razreda i godinom generacije",
+          "Do 100 fotografija koje maturanti sami odaberu i pošalju",
+          "Personalizirani photobook s imenom razreda i godinom generacije na koricama",
           "Premium foto papir i ručna izrada",
-          "Mjesto za photobooth fotografije s maturalne večeri",
-          "Prostor za osobne poruke maturanata",
-          "Isporuka booka na samu maturalnu večer",
+          "Prostor za osobne poruke, posvete te fotografije sa maturalne večeri",
+          "Isporuka gotovog booka na maturalnu večer",
         ],
       },
     ],
@@ -326,9 +325,11 @@ export default function MaturalnePricing() {
                     {group.label}
                   </h3>
                 </div>
-                <p className="text-sm text-gray-400 font-light sm:pb-1 pl-5 sm:pl-0">
-                  {group.caption}
-                </p>
+                {group.caption && (
+                  <p className="text-sm text-gray-400 font-light sm:pb-1 pl-5 sm:pl-0">
+                    {group.caption}
+                  </p>
+                )}
               </div>
 
               <div
@@ -347,7 +348,7 @@ export default function MaturalnePricing() {
         <div className="mt-20 flex justify-center">
           <div className="flex items-center gap-4 px-7 py-5 rounded-2xl border border-[#BE9E5C]/25 bg-white shadow-[0_16px_44px_-30px_rgba(0,0,0,0.35)] max-w-xl">
             <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#BE9E5C] whitespace-nowrap border-r border-[#BE9E5C]/25 pr-4">
-              Kapara
+              Napomena
             </span>
             <p className="text-sm text-gray-600 font-light leading-relaxed">
               Uplata 25% po završetku dogovora. Ostatak plaćanja na dan maturalne

@@ -6,7 +6,6 @@ import { useMemo } from "react";
 import { motion } from "framer-motion";
 
 import SectionHero from "@/components/SectionHero";
-import { maturalneItems } from "@/app/maturalne-veceri/data";
 
 const HERO_IMAGES = [
   "/heroHompage/desktop/Lucija%26Ante%20-%20138.jpg",
@@ -27,7 +26,7 @@ export default function Home() {
     () => [
       {
         title: "Maturalne Večeri",
-        description: "Uhvatite najljepše trenutke vaše maturalne večeri",
+        description: "Uhvatite nezaboravne trenutke maturalne večeri",
         href: "/maturalne-veceri",
         image: "/menuImages/MaturalnaVe%C4%8Der_%20Titu%C5%A1-%20615.jpg",
       },
@@ -39,13 +38,13 @@ export default function Home() {
       },
       {
         title: "Sveto Krštenje",
-        description: "Diskretna fotografija obreda i obiteljskog slavlja",
+        description: "Nježna uspomena na najvažniji dan vašeg djeteta.",
         href: "/krstenja",
         image: "/menuImages/Sveto_kr%C5%A1tenje_Andro%20%20-%2098.jpg",
       },
       {
         title: "Najam Photobooth-a",
-        description: "Posebni obiteljski trenuci zaslužuju posebnu pažnju",
+        description: "Zabava i osmijesi koje vaši gosti nose kući.",
         href: "/photobooth",
         image: "/menuImages/MaturalnaVe%C4%8Der_%20GGG%20-%20473.jpg",
       },
@@ -53,15 +52,37 @@ export default function Home() {
     []
   );
 
-  // Latest work — links to the real maturalne galleries.
+  // Latest work — one highlight from each category.
   const latestWorks = useMemo(
-    () =>
-      maturalneItems.slice(0, 4).map((m) => ({
-        name: m.name,
-        category: m.category,
-        coverImage: m.coverImage,
-        href: `/maturalne-veceri/${m.slug}`,
-      })),
+    () => [
+      {
+        name: "Stjepan & Lucija",
+        category: "Vjenčanje",
+        coverImage: "/vjencanja/Stjepan%26Lucija/Stjepan%26Lucija-141.jpg",
+        href: "/vjencanja/stjepan-lucija",
+      },
+      {
+        name: "Geodetska škola",
+        category: "Maturalna večer",
+        coverImage:
+          "/maturalne/geodetska/MaturalnaVe%C4%8Der_%20Geodetska%20-%201.jpg",
+        href: "/maturalne-veceri/geodetska-skola",
+      },
+      {
+        name: "Krštenje Andro",
+        category: "Sveto krštenje",
+        coverImage:
+          "/krstenja/Andro/Sveto_kr%C5%A1tenje_Andro%20%20-%201.jpg",
+        href: "/krstenja/krstenje-andro",
+      },
+      {
+        name: "Photobooth",
+        category: "Photobooth",
+        coverImage:
+          "/heroPhotobooth/desktop/MaturalnaVe%C4%8Der_%20GGG%20-%20472.jpg",
+        href: "/photobooth",
+      },
+    ],
     []
   );
 
@@ -123,16 +144,13 @@ export default function Home() {
             {/* Right — paragraphs */}
             <div className="space-y-6 max-w-2xl lg:pt-2">
               <p className="text-lg text-gray-600 leading-[1.8] font-light">
-                Luma Productions je kreativni tim posvećen fotografiji i video
-                produkciji koja čuva vaše najvažnije trenutke. Od intimnih
-                obiteljskih slavlja do velikih komercijalnih projekata,
-                pristupamo svakom zadatku s jednakom strašću i pažnjom za
-                detalje.
+                Iza LumaProductions-a stoji mladi tim.
               </p>
               <p className="text-lg text-gray-600 leading-[1.8] font-light">
-                Naša filozofija je jednostavna: svaki trenutak priča priču, a
-                mi smo tu da ju zabilježimo — autentično, estetski, i s
-                posvećenošću koja se vidi u svakom kadru.
+                Kroz maturalne večeri, vjenčanja, krštenja i komercijalne
+                projekte shvatili smo jedno, najbolji kadrovi nastaju kad
+                zaboraviš da smo tu, u onom pogledu, smijehu ili suzi koja
+                proleti u sekundi.
               </p>
             </div>
           </div>
@@ -253,7 +271,8 @@ export default function Home() {
                     sizes="(min-width: 768px) 50vw, 100vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-start justify-end p-6">
+                  {/* Always-visible category + name in the corner */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent flex flex-col items-start justify-end p-6">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#BE9E5C] mb-1">
                       {work.category}
                     </p>
